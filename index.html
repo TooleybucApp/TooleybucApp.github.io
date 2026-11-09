@@ -322,7 +322,7 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
 @keyframes ptr{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 #inst-sheet.s-and .pointer{animation-name:ptru}@keyframes ptru{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @media (prefers-reduced-motion:reduce){#inst-sheet .pointer{animation:none}}
-#inst-sheet.s-ios ~ .pointer,#inst-sheet.s-ios .pointer,.s-ios-ptr-off{display:none!important}html.bigtxt{--fs:1.22}#big-btn{margin-right:8px}html.bigtxt #big-btn{background:var(--gold,#F0B323);color:#1E2A1A}</style>
+#inst-sheet.s-ios ~ .pointer,#inst-sheet.s-ios .pointer,.s-ios-ptr-off{display:none!important}html.bigtxt{--fs:1.22}#big-btn{margin-right:8px}html.bigtxt #big-btn{background:var(--gold,#F0B323);color:#1E2A1A}.ss-tabs{display:flex;gap:8px;margin:4px 0 8px}.ss-tab{flex:1;padding:10px;border-radius:10px;border:2px solid var(--green);background:#fff;color:var(--green);font-weight:700;font-size:calc(15px*var(--fs,1))}.ss-tab.on{background:var(--green);color:#fff}tr.ss-top td{background:#FFF3D6}.ss-prz{margin:10px 0;padding:10px 12px;border-radius:12px;background:#FFF3D6;display:flex;flex-direction:column;gap:4px;font-size:calc(14px*var(--fs,1))}.ss-prz small{color:#555}.ss-rd{border:1px solid var(--line);border-radius:12px;margin:0 0 8px;padding:0 12px}.ss-rd summary{padding:10px 0;font-weight:700;cursor:pointer}.ss-rd h5{margin:6px 0 2px;font-size:calc(13px*var(--fs,1));color:var(--green);text-transform:uppercase}.ss-rd ol{margin:0 0 8px;padding-left:22px}.ss-rd li{margin:2px 0}.ss-rd li span{float:right;font-weight:700}.ss-card{display:flex!important;flex-direction:row!important;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid #F0B323;background:#fff}.ss-card .gi{font-size:30px}</style>
 </head>
 <body>
 
@@ -405,7 +405,7 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
     <div data-weekly="0"><span>Sun · Men's Golf</span><span>12:30pm</span></div>
   </div>
   <button class="card tap" type="button" data-t="Junior Golf Coaching" data-d="Free coaching for boys and girls under 18, run by local volunteer golfers. Sundays 9-11am: 15 and 22 November. Wind Up Day 22 November, 12pm." data-a="call"><span class="k">SUNDAYS 9-11AM · FREE</span><span class="t">Junior Golf Coaching</span><span class="s">15 & 22 Nov · Wind Up Day 22 Nov</span></button>
-  <div class="tip"><b>Tooleybuc Twelve Thousand Sunday Golf Series</b><span class="s">2026/27 series · $40 entry, Tooleybuc golf members $10 · 6 prizes each round plus a members leaderboard</span><a class="btn g" href="#golf" style="align-self:flex-start;margin-top:6px">Open golf scorecard</a></div>
+  <div class="tip"><b>Tooleybuc Twelve Thousand Sunday Golf Series</b><span class="s">2026/27 series · $40 entry, Tooleybuc golf members $10 · 6 prizes each round plus a members leaderboard</span><button type="button" class="btn g ss-open" style="align-self:flex-start;margin-top:6px">See the leaderboard</button></div>
 </div></section>
 
 <!-- DRAWS -->
@@ -467,7 +467,8 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
 {"date":"2026-11-30","ev":"Green Fees"}
 ]}
 </script>
-  <div class="card" id="gres"><span class="k">Latest golf results</span><div id="gr-list"></div></div>
+  <button type="button" class="card tap ss-open ss-card"><span class="gi">⛳</span><span style="flex:1"><span class="k" style="display:block">$12,000 Sunday Series · after Round 3</span><span class="t" style="display:block">Members leaderboard</span><span class="s" id="ss-lead" style="display:block">Men · Ladies · round winners · tap to see</span></span><span style="font-size:22px">›</span></button>
+<div class="card" id="gres"><span class="k">Latest golf results</span><div id="gr-list"></div></div>
 <script id="gres-data" type="application/json">
 {
 "updated": "2026-11-06",
@@ -1175,6 +1176,233 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
 ]
 }
 </script>
+<div class="sheet" id="ss-sheet" hidden><div class="box menubox" role="dialog" aria-modal="true" aria-labelledby="ss-t">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 id="ss-t">⛳ $12,000 Sunday Series</h3><button class="btn y gx" type="button" style="flex:none;padding:8px 14px">Close</button></div>
+<div class="menulist">
+<p class="s" id="ss-sub" style="margin:0 0 6px"></p>
+<h4>Members leaderboard</h4>
+<div class="ss-tabs"><button type="button" class="ss-tab on" data-g="men">Men</button><button type="button" class="ss-tab" data-g="ladies">Ladies</button></div>
+<div class="pk-find"><input class="inp" id="ss-q" type="search" placeholder="Find your score: type your first name" autocomplete="off" aria-label="Find your Sunday Series score"><div id="ss-res"></div></div>
+<table class="pk-lb"><thead><tr><th>#</th><th style="text-align:left">Player</th><th>Points</th></tr></thead><tbody id="ss-lb"></tbody></table>
+<div class="ss-prz"><b>Series prizes – men's and ladies' leaderboards</b><span id="ss-prz"></span><small>Top 6 (shaded) are in the prize places.</small></div>
+<h4>Round winners</h4>
+<p class="s" style="margin:0 0 6px">Handicap and non-handicap winners are paid in Rounds 1–4 only.</p>
+<div id="ss-rounds"></div>
+<p class="s" style="margin:10px 0 0;font-size:calc(12px*var(--fs,1))" id="ss-upd"></p>
+</div>
+<a class="btn g" href="https://www.bookatee.com.au/Tooleybuc/?club=Tooleybuc&amp;clubid=41&amp;Submit=Book" style="text-align:center">Book your Sunday tee time ↗</a>
+</div></div>
+<script id="ss-data" type="application/json">
+{
+ "updated": "2026-11-01",
+ "after_round": 3,
+ "source": "Canva: Sunday Series Results 2026/2027",
+ "prizes": [
+  500,
+  450,
+  400,
+  350,
+  300,
+  250
+ ],
+ "men": [
+  [
+   "Shane I.",
+   15
+  ],
+  [
+   "John C.",
+   11
+  ],
+  [
+   "Jordan E.",
+   10
+  ],
+  [
+   "Tom M.",
+   10
+  ],
+  [
+   "Ashley P.",
+   6
+  ],
+  [
+   "Eli D.",
+   6
+  ],
+  [
+   "Scott M.",
+   4
+  ]
+ ],
+ "ladies": [
+  [
+   "Lois J.",
+   16
+  ],
+  [
+   "Nicole I.",
+   10
+  ],
+  [
+   "Narelle F.",
+   10
+  ]
+ ],
+ "rounds": [
+  {
+   "no": 3,
+   "date": "2026-11-01",
+   "hcp": [
+    [
+     "Eli D.",
+     100
+    ],
+    [
+     "Lois J.",
+     100
+    ],
+    [
+     "Narelle F.",
+     50
+    ],
+    [
+     "Shane I.",
+     50
+    ],
+    [
+     "Tom M.",
+     50
+    ],
+    [
+     "Jordan E.",
+     50
+    ]
+   ],
+   "nonhcp": [
+    [
+     "Jack H.",
+     100
+    ],
+    [
+     "Eddie I.",
+     100
+    ],
+    [
+     "Max H.",
+     50
+    ],
+    [
+     "Levi W.",
+     50
+    ],
+    [
+     "Gavin H.",
+     50
+    ]
+   ]
+  },
+  {
+   "no": 2,
+   "date": "2026-10-11",
+   "hcp": [
+    [
+     "Brady P.",
+     100
+    ],
+    [
+     "Mark P.",
+     100
+    ],
+    [
+     "Tom M.",
+     50
+    ],
+    [
+     "John C.",
+     50
+    ],
+    [
+     "Shane I.",
+     50
+    ],
+    [
+     "Ashley P.",
+     50
+    ]
+   ],
+   "nonhcp": [
+    [
+     "Josh M.",
+     100
+    ],
+    [
+     "Max H.",
+     100
+    ],
+    [
+     "Jack H.",
+     50
+    ],
+    [
+     "Gavin H.",
+     50
+    ],
+    [
+     "Eddie I.",
+     50
+    ]
+   ]
+  },
+  {
+   "no": 1,
+   "date": "2026-09-13",
+   "winners": [
+    [
+     "Lois J.",
+     100,
+     "42"
+    ],
+    [
+     "Shane I.",
+     100,
+     "50"
+    ],
+    [
+     "John C.",
+     50,
+     "54.4"
+    ],
+    [
+     "Jordan E.",
+     50,
+     "54.7"
+    ],
+    [
+     "Ashley P.",
+     50,
+     "56.1"
+    ],
+    [
+     "Scott M.",
+     50,
+     "57"
+    ],
+    [
+     "Chris P.",
+     0,
+     "57.8"
+    ],
+    [
+     "Xander I.",
+     0,
+     "65.5"
+    ]
+   ]
+  }
+ ]
+}
+</script>
 <div class="sheet" id="bingo-sheet" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="bg-t">
   <div style="display:flex;justify-content:space-between;align-items:center"><h3 id="bg-t">Bingo</h3><button class="btn y gx" type="button" style="flex:none;padding:8px 14px">Close</button></div>
   <div class="mi"><div><b>Tuesday night</b><small>Eyes down</small></div><span>7:15pm</span></div>
@@ -1607,6 +1835,27 @@ window.addEventListener("afterprint",function(){var sg=document.querySelector(".
 
 <script>(function(){try{var m=/[?&]add=(iphone|android)/i.exec(location.search);var sa=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;if(m&&!sa){window.addEventListener("load",function(){setTimeout(function(){var g=document.getElementById("inst-go");if(g)g.click();},500);});}}catch(e){}})();</script>
 <script>(function(){var r=document.documentElement,b,l;function set(on){r.classList.toggle("bigtxt",on);b=b||document.getElementById("big-btn");l=l||document.getElementById("big-lbl");if(b){b.setAttribute("aria-pressed",on?"true":"false");b.setAttribute("aria-label",on?"Make text normal size":"Make text bigger");}if(l)l.textContent=on?"Normal":"Big text";}var on=false;try{on=localStorage.getItem("tsc-big")==="1";}catch(e){}set(on);document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("#big-btn");if(!t)return;on=!r.classList.contains("bigtxt");set(on);try{localStorage.setItem("tsc-big",on?"1":"0");}catch(e){}});})();</script>
+<script>(function(){try{var D=JSON.parse(document.getElementById("ss-data").textContent),sh=document.getElementById("ss-sheet");if(!sh)return;
+var MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];function fd(d){var p=d.split("-");return (+p[2])+" "+MN[+p[1]-1];}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function ranks(L){var out=[],prev=null,r=0;L.forEach(function(x,i){if(x[1]!==prev){r=i+1;prev=x[1];}out.push(r);});return out.map(function(r,i){var tie=out.filter(function(z){return z===r;}).length>1;return (tie?"=":"")+r;});}
+var g="men";function draw(){var L=D[g]||[],R=ranks(L),h="";L.forEach(function(x,i){var top=parseInt(R[i].replace("=",""),10)<=6;h+='<tr'+(top?' class="ss-top"':'')+'><td>'+R[i]+'</td><td style="text-align:left">'+esc(x[0])+'</td><td>'+x[1]+'</td></tr>';});
+document.getElementById("ss-lb").innerHTML=h||'<tr><td colspan="3">No points yet</td></tr>';}
+document.querySelectorAll(".ss-tab").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".ss-tab").forEach(function(x){x.classList.toggle("on",x===b);});g=b.getAttribute("data-g");draw();});});
+draw();
+var pl=["1st","2nd","3rd","4th","5th","6th"];document.getElementById("ss-prz").textContent=D.prizes.map(function(p,i){return pl[i]+" $"+p;}).join(" · ");
+document.getElementById("ss-sub").textContent="Leaderboard after Round "+D.after_round+" · Sunday "+fd(D.updated)+" 2026";
+var rh="";D.rounds.forEach(function(r,i){rh+='<details class="ss-rd"'+(i===0?' open':'')+'><summary>Round '+r.no+' · Sunday '+fd(r.date)+'</summary>';
+function lst(t,a,sc){if(!a)return"";var x='<h5>'+t+'</h5><ol>';a.forEach(function(w){x+='<li>'+esc(w[0])+(sc&&w[2]?' · '+esc(w[2]):'')+(w[1]?'<span>$'+w[1]+'</span>':'')+'</li>';});return x+'</ol>';}
+rh+=lst("Handicap winners",r.hcp)+lst("Non-handicap winners",r.nonhcp)+lst("Winners",r.winners,true)+'</details>';});
+document.getElementById("ss-rounds").innerHTML=rh;
+document.getElementById("ss-upd").textContent="First name and surname initial. Updated after Round "+D.after_round+" ("+fd(D.updated)+" 2026).";
+var lm=D.men&&D.men[0],ll=D.ladies&&D.ladies[0],le=document.getElementById("ss-lead");if(le&&lm&&ll)le.textContent="Leaders: "+lm[0]+" ("+lm[1]+" pts) · "+ll[0]+" ("+ll[1]+" pts)";
+var q=document.getElementById("ss-q"),res=document.getElementById("ss-res");q.addEventListener("input",function(){var v=q.value.trim().toLowerCase();if(v.length<2){res.textContent="";return;}var f=[];["men","ladies"].forEach(function(k){var L=D[k],R=ranks(L);L.forEach(function(x,i){if(x[0].toLowerCase().indexOf(v)===0)f.push(x[0]+": "+R[i]+" on the "+(k==="men"?"men's":"ladies'")+" leaderboard, "+x[1]+" pts");});});res.textContent=f.length?f.join(" · "):"No match yet – points are for Tooleybuc golf members.";});
+document.querySelectorAll(".ss-open").forEach(function(b){b.addEventListener("click",function(){sh.hidden=false;});});
+sh.querySelector(".gx").addEventListener("click",function(){sh.hidden=true;});sh.addEventListener("click",function(e){if(e.target===sh)sh.hidden=true;});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")sh.hidden=true;});
+}catch(e){}})();</script>
 
 </body>
 </html>
