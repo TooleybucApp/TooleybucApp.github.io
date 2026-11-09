@@ -1548,7 +1548,7 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
 (function(){var b=document.getElementById("inst");if(!b)return;
   var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
   var hid=false;try{var hv=localStorage.getItem("tsc-inst-hide");hid=!!hv&&hv!=="1"&&(Date.now()-(+hv))<3*864e5;}catch(e){}
-  if(!standalone&&!hid)b.hidden=false;
+  /* bar retired 9 Nov 2026: "Scan to open" – saving is optional via Share */
   var ua=navigator.userAgent||"",ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1),and=/Android/.test(ua),dp=null;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});
   window.addEventListener("appinstalled",function(){b.hidden=true;});
