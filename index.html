@@ -1182,6 +1182,10 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
 <div class="sheet" id="inst-sheet" hidden><div class="pointer" aria-hidden="true"></div><div class="box" role="dialog" aria-modal="true" aria-labelledby="in-t">
   <div style="display:flex;justify-content:space-between;align-items:center"><h3 id="in-t">Add the TSC app</h3><button class="btn y" type="button" id="in-x" style="flex:none;padding:8px 14px">Close</button></div>
   <div id="in-ios" hidden><ol class="isteps"><li>Tap <b>Share</b> <span class="shr">⬆︎</span> in Safari's bar at the bottom. <small>(Newer iPhones: tap <b>•••</b> first, then Share. iPad: top right.)</small></li><li>Tap <b>Add to Home Screen</b> (scroll down if needed).</li><li>Tap <b>Add</b>. The TSC icon appears on your home screen.</li></ol></div>
+  <div id="in-inapp" hidden><p style="color:var(--ink,#1E2A1A);margin:0 0 8px"><b>This page is open inside another app</b> (Facebook, email or similar), which can't add apps to your phone. Open it in your phone's own browser first:</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn g" id="in-safari" href="x-safari-https://tooleybucapp.github.io/" style="flex:1;text-align:center">Open in Safari</a><button class="btn y" type="button" id="in-copy" style="flex:1">Copy link</button></div>
+  <p class="s" style="margin:8px 0 0">If "Open in Safari" does nothing: tap <b>Copy link</b>, open <b>Safari</b> (or Chrome on Android), paste into the address bar, then tap <b>Add app</b> again.</p></div>
+  <div id="in-ioschrome" hidden><ol class="isteps"><li>Tap <b>Share</b> <span class="shr">⬆︎</span> at the <b>top right</b>, in Chrome's address bar.</li><li>Tap <b>Add to Home Screen</b> (scroll down if needed).</li><li>Tap <b>Add</b>. The TSC icon appears on your home screen.</li></ol></div>
   <div id="in-and" hidden><ol class="isteps"><li>Tap the <b>⋮</b> menu at the top right of Chrome.</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li><li>Tap <b>Install</b>. The TSC icon appears with your other apps.</li></ol></div>
   <div id="in-pc" hidden><p>On a computer, click the <b>install icon</b> at the right end of the address bar, or open this page on your phone by scanning the QR code (tap <b>Share</b> at the top of the app).</p></div>
 </div></div>
@@ -1550,7 +1554,10 @@ html.nfb nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:
   var sh=document.getElementById("inst-sheet");
   document.getElementById("inst-go").addEventListener("click",function(){
     if(dp){dp.prompt();dp.userChoice.then(function(r){if(r.outcome==="accepted")b.hidden=true;dp=null;});return;}
-    document.getElementById("in-ios").hidden=!ios;document.getElementById("in-and").hidden=!and;document.getElementById("in-pc").hidden=ios||and;sh.classList.toggle("strip",ios||and);sh.classList.toggle("s-ios",ios);sh.classList.toggle("s-and",and);sh.hidden=false;});
+    var inapp=/FBAN|FBAV|FB_IAB|Instagram|Messenger|Line\/|MicroMessenger|Outlook|GSA\/|Snapchat|LinkedIn|wv\)/.test(ua),ichr=ios&&/CriOS|EdgiOS|FxiOS/.test(ua),saf=ios&&!inapp&&!ichr;
+    document.getElementById("in-inapp").hidden=!inapp;document.getElementById("in-ioschrome").hidden=!ichr||inapp;document.getElementById("in-ios").hidden=!saf;document.getElementById("in-and").hidden=!and||inapp;document.getElementById("in-pc").hidden=ios||and||inapp;
+    document.getElementById("in-safari").hidden=!ios;var st=(ios||and)&&!inapp;sh.classList.toggle("strip",st);sh.classList.toggle("s-ios",st&&saf);sh.classList.toggle("s-and",st&&(and||ichr));sh.hidden=false;});
+  document.getElementById("in-copy").addEventListener("click",function(){var u="https://tooleybucapp.github.io/";try{navigator.clipboard.writeText(u).then(function(){var c=document.getElementById("in-copy");c.textContent="Copied ✓ – now open Safari & paste";},function(){prompt("Copy this link:",u);});}catch(e){prompt("Copy this link:",u);}});
   document.getElementById("in-x").addEventListener("click",function(){sh.hidden=true;});sh.addEventListener("click",function(e){if(e.target===sh)sh.hidden=true;});
   document.getElementById("inst-x").addEventListener("click",function(){b.hidden=true;try{localStorage.setItem("tsc-inst-hide","1");}catch(e){}});
   if("serviceWorker" in navigator&&location.protocol==="https:"&&/(netlify\.app|github\.io)$/.test(location.hostname)){navigator.serviceWorker.register("sw.js").catch(function(){});}
