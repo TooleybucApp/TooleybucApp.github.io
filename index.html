@@ -1891,7 +1891,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")sh.hidden=tr
 </script>
 <script>(function(){try{var D=JSON.parse(document.getElementById("spec-data").textContent);function e(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 var d=new Date().getDay(),t=["6pm","6pm","5:30pm","5:30pm","5:30pm","5:30pm","5:30pm"];t=[ "5:30pm","6pm","6pm","5:30pm","5:30pm","5:30pm","5:30pm"][d];
-var h='<div class="k">Bistro · dinner tonight from '+t+'</div><div class="h">Tonight\u2019s Specials</div><ul>';
+var h='<div class="k">Tonight · dinner from '+t+'</div><div class="h">Bistro Specials</div><ul>';
 D.mains.forEach(function(m){h+='<li>'+e(m[0])+(m[1]?'<small>'+e(m[1])+'</small>':'')+'</li>';});
 h+='</ul><span class="pr">$'+D.main_price+' each</span>';
 if(D.dessert)h+='<div class="ds"><b>Dessert:</b> '+e(D.dessert[0])+(D.dessert[1]?' '+e(D.dessert[1]):'')+' \u2013 <b>$'+D.dessert[2]+'</b></div>';
