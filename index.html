@@ -359,7 +359,7 @@ html.mgprint table.mg *,html.mgprint .mg-lead,html.mgprint .mg-wrap{-webkit-prin
 html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .tile{aspect-ratio:auto;min-height:96px}.tiles{display:flex!important;gap:8px}.tile{flex:1 1 0;min-width:0}.tile[hidden]{display:none!important}
 .tile.t-spec{border:0!important;box-shadow:inset 0 0 0 2px #5AA9E6,0 2px 6px rgba(0,0,0,.12)}
 .tile.t-hh{background:linear-gradient(180deg,#FFF4DC 0,#FFF4DC 15%,#F5B544 15%,#D9771A 100%)!important;color:#fff;text-shadow:0 1px 2px rgba(80,30,0,.45)}.tile.t-hh .ti{margin-top:6px}
-.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}</style>
+.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}.ss-next{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#E3F4E1;color:#215016;font-size:calc(14px*var(--fs,1))}</style>
 </head>
 <body>
 
@@ -1242,6 +1242,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
 {
  "updated": "2026-11-01",
  "after_round": 3,
+ "next": {"no": 4, "label": "Round 4 · Sunday 6 December · 8am · Par 3 course · handicap & non-handicap"},
  "source": "Canva: Sunday Series Results 2026/2027",
  "prizes": [
   500,
@@ -1909,7 +1910,7 @@ document.getElementById("ss-lb").innerHTML=h||'<tr><td colspan="3">No points yet
 document.querySelectorAll(".ss-tab").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".ss-tab").forEach(function(x){x.classList.toggle("on",x===b);});g=b.getAttribute("data-g");draw();});});
 draw();
 var pl=["1st","2nd","3rd","4th","5th","6th"];document.getElementById("ss-prz").textContent=D.prizes.map(function(p,i){return pl[i]+" $"+p;}).join(" · ");
-document.getElementById("ss-sub").textContent="Leaderboard after Round "+D.after_round+" · Sunday "+fd(D.updated)+" 2026";
+document.getElementById("ss-sub").textContent="Leaderboard after Round "+D.after_round+" · Sunday "+fd(D.updated)+" 2026";if(D.next){var nx=document.createElement("p");nx.className="ss-next";nx.innerHTML="<b>Next:</b> "+esc(D.next.label)+" · book on Book-A-Tee";document.getElementById("ss-sub").after(nx);var le2=document.getElementById("ss-lead");}
 var rh="";D.rounds.forEach(function(r,i){rh+='<details class="ss-rd"'+(i===0?' open':'')+'><summary>Round '+r.no+' · Sunday '+fd(r.date)+'</summary>';
 function lst(t,a,sc){if(!a)return"";var x='<h5>'+t+'</h5><ol>';a.forEach(function(w){x+='<li>'+esc(w[0])+(sc&&w[2]?' · '+esc(w[2]):'')+(w[1]?'<span>$'+w[1]+'</span>':'')+'</li>';});return x+'</ol>';}
 rh+=lst("Handicap winners",r.hcp)+lst("Non-handicap winners",r.nonhcp)+lst("Winners",r.winners,true)+'</details>';});
