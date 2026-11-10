@@ -72,7 +72,7 @@ h2{margin:6px 0 0;font-size:calc(12px*var(--fs,1));font-weight:600;letter-spacin
 .phone{font-size:calc(18px*var(--fs,1));font-weight:600;user-select:all;font-variant-numeric:tabular-nums}
 .foot{font-size:calc(11px*var(--fs,1));color:var(--muted);text-align:center;padding-top:8px}
 nav{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);z-index:6;padding-bottom:env(safe-area-inset-bottom,0px)}
-nav .wrap{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));padding-block:8px 8px}
+nav .wrap{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));padding-block:8px 8px}
 nav a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:calc(11px*var(--fs,1));white-space:nowrap;color:#5C6657;text-decoration:none;min-height:44px;justify-content:center}
 nav a[aria-current="page"]{color:var(--green);font-weight:600}
 :root:has(#v-golf:not([hidden])[data-course="par3"]) nav a[aria-current="page"]{color:var(--orange)}
@@ -329,7 +329,14 @@ table.mg .c1{background:#fff}table.mg .c2{background:#DCEEFB}table.mg .c3{backgr
 .mg-ini{width:100%;box-sizing:border-box;text-align:center;text-transform:uppercase;font-weight:800;font-size:calc(16px*var(--fs,1));border:2px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 0;background:#fff;color:#1E2A1A}
 .mg-in{width:100%;box-sizing:border-box;border:0;background:transparent;text-align:center;font:inherit;font-weight:700;padding:9px 0;color:#1E2A1A}.mg-in:focus{outline:3px solid #F0B323;outline-offset:-3px}
 table.mg tr.mgp3 td:nth-child(2){color:#B54708}table.mg tr.mgsum td{background:#215016!important;color:#fff;font-weight:800;padding:8px 0}table.mg tr.mgtot td{background:#F0B323!important;color:#1E2A1A;font-weight:800;padding:10px 0;font-size:calc(18px*var(--fs,1))}table.mg tr.mgvp td{font-weight:700;padding:6px 0;font-size:calc(14px*var(--fs,1))}
-.mg-lead{margin:10px 0;padding:10px 12px;border-radius:12px;background:#FFF3D6;font-weight:700;font-size:calc(15px*var(--fs,1))}.mg-btns{display:flex;gap:10px}.mg-btns .btn{flex:1;text-align:center}</style>
+.mg-lead{margin:10px 0;padding:10px 12px;border-radius:12px;background:#FFF3D6;font-weight:700;font-size:calc(15px*var(--fs,1))}.mg-btns{display:flex;gap:10px}.mg-btns .btn{flex:1;text-align:center}nav .navb{display:flex;flex-direction:column;align-items:center;gap:3px;font:inherit;font-size:calc(11px*var(--fs,1));white-space:nowrap;color:#5C6657;background:none;border:0;min-height:44px;justify-content:center;padding:0;cursor:pointer}nav a{font-size:calc(10.5px*var(--fs,1))!important}
+.mg-pfoot{display:none}
+@media print{html.mgprint header,html.mgprint nav,html.mgprint main,html.mgprint .toast{display:none!important}html.mgprint .sheet:not(#mg-sheet){display:none!important}
+html.mgprint #mg-sheet{display:block!important;position:static!important;background:#fff!important;inset:auto!important;padding:0!important}html.mgprint #mg-sheet *{visibility:visible!important}
+html.mgprint #mg-sheet .box{position:static!important;max-height:none!important;overflow:visible!important;box-shadow:none!important;border:0!important;width:100%!important;max-width:none!important;padding:0!important;transform:none!important}
+html.mgprint .mg-btns{display:none!important}html.mgprint .mg-pfoot{display:block!important;font:9pt Arial;color:#555;margin-top:6mm;text-align:center}
+html.mgprint table.mg td,html.mgprint table.mg th{padding:2px 0!important;font:11pt Arial}html.mgprint .mg-in{padding:2px 0!important;font:bold 11pt Arial}html.mgprint .mg-ini{font:bold 11pt Arial;border:1px solid #999}
+html.mgprint table.mg *,html.mgprint .mg-lead,html.mgprint .mg-wrap{-webkit-print-color-adjust:exact;print-color-adjust:exact}html.mgprint body,html.mgprint html{height:auto!important;overflow:visible!important;background:#fff!important}}</style>
 </head>
 <body>
 
@@ -1421,7 +1428,7 @@ table.mg tr.mgp3 td:nth-child(2){color:#B54708}table.mg tr.mgsum td{background:#
 <tr><th>Hole</th><th>Par</th><th class="c1"><input class="mg-ini" data-p="0" maxlength="3" placeholder="P1" aria-label="Player 1 initials"></th><th class="c2"><input class="mg-ini" data-p="1" maxlength="3" placeholder="P2" aria-label="Player 2 initials"></th><th class="c3"><input class="mg-ini" data-p="2" maxlength="3" placeholder="P3" aria-label="Player 3 initials"></th><th class="c4"><input class="mg-ini" data-p="3" maxlength="3" placeholder="P4" aria-label="Player 4 initials"></th></tr>
 </thead><tbody id="mg-body"></tbody></table></div>
 <div class="mg-lead" id="mg-lead">Type initials (3 letters), then each player's shots per hole.</div>
-<div class="mg-btns"><button type="button" class="btn y" id="mg-new">New game</button><button type="button" class="btn g gx">Close</button></div>
+<div class="mg-btns"><button type="button" class="btn g" id="mg-print">🖨️ Print / Save</button><button type="button" class="btn g" id="mg-share">📤 Share score</button></div><div class="mg-btns" style="margin-top:8px"><button type="button" class="btn y" id="mg-new">New game</button><button type="button" class="btn y gx">Close</button></div><p class="mg-pfoot">Tooleybuc Sporting Club · Mini Golf · tooleybucapp.github.io</p>
 </div></div>
 <div class="sheet" id="bingo-sheet" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="bg-t">
   <div style="display:flex;justify-content:space-between;align-items:center"><h3 id="bg-t">Bingo</h3><button class="btn y gx" type="button" style="flex:none;padding:8px 14px">Close</button></div>
@@ -1459,6 +1466,7 @@ table.mg tr.mgp3 td:nth-child(2){color:#B54708}table.mg tr.mgsum td{background:#
   <a href="#golf" data-v="golf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 21V3l11 4-11 4"/><ellipse cx="12" cy="21" rx="7" ry="1.5"/></svg>Golf</a>
   <a href="#draws" data-v="draws"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4z"/></svg>Draws</a>
   <a href="#dine" data-v="dine"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></svg>Dine</a>
+  <button type="button" class="navb mg-open" aria-label="Mini golf scorecard"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="18" r="3"/><path d="M12 15V3l6 3-6 3"/></svg>Mini Golf</button>
   <a href="#member" data-v="member"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Member</a>
 </div></nav>
 
@@ -1944,6 +1952,14 @@ document.getElementById("mg-new").addEventListener("click",function(){st={d:toda
 load();
 document.querySelectorAll(".mg-open").forEach(function(b){b.addEventListener("click",function(){fill();sh.hidden=false;});});
 sh.querySelector(".gx").addEventListener("click",function(){sh.hidden=true;});sh.addEventListener("click",function(e){if(e.target===sh)sh.hidden=true;});
+})();</script>
+<script>(function(){var r=document.documentElement,p=document.getElementById("mg-print"),sh=document.getElementById("mg-share");if(!p)return;
+p.addEventListener("click",function(){r.classList.add("mgprint");setTimeout(function(){window.print();},50);});
+window.addEventListener("afterprint",function(){r.classList.remove("mgprint");});
+function txt(){var ini=[].slice.call(document.querySelectorAll(".mg-ini")),out=[];for(var i=0;i<4;i++){var t=document.getElementById("mg-t"+i).textContent;if(t&&t!=="–")out.push((ini[i].value||("P"+(i+1)))+" "+t);}
+var d=document.getElementById("mg-date").value,ds="";if(d){var q=d.split("-"),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];ds=(+q[2])+" "+M[+q[1]-1]+" "+q[0];}
+var lead=document.getElementById("mg-lead").textContent;return "⛳ Tooleybuc Mini Golf"+(ds?" – "+ds:"")+"\n"+(out.length?out.join(" · ")+" (par 39)\n":"")+(lead.indexOf("🏆")===0?lead+"\n":"")+"Buy a meal, play for free! https://tooleybucapp.github.io";}
+sh.addEventListener("click",function(){var t=txt();if(navigator.share){navigator.share({text:t}).catch(function(){});}else{try{navigator.clipboard.writeText(t);sh.textContent="✓ Copied";setTimeout(function(){sh.textContent="📤 Share score";},2000);}catch(e){}}});
 })();</script>
 
 </body>
