@@ -359,7 +359,7 @@ html.mgprint table.mg *,html.mgprint .mg-lead,html.mgprint .mg-wrap{-webkit-prin
 html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .tile{aspect-ratio:auto;min-height:96px}.tiles{display:flex!important;gap:8px}.tile{flex:1 1 0;min-width:0}.tile[hidden]{display:none!important}
 .tile.t-spec{border:0!important;box-shadow:inset 0 0 0 2px #5AA9E6,0 2px 6px rgba(0,0,0,.12)}
 .tile.t-hh{background:linear-gradient(180deg,#FFF4DC 0,#FFF4DC 15%,#F5B544 15%,#D9771A 100%)!important;color:#fff;text-shadow:0 1px 2px rgba(80,30,0,.45)}.tile.t-hh .ti{margin-top:6px}
-.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}.ss-next{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#E3F4E1;color:#215016;font-size:calc(14px*var(--fs,1))}</style>
+.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}.ss-next{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#E3F4E1;color:#215016;font-size:calc(14px*var(--fs,1))}#ss-lb td.ss-pz{font-weight:800;color:#215016}#ss-lb tr.ss-open td{color:#8a8f86;font-style:italic}#ss-lb tr.ss-open td.ss-pz{font-style:normal;color:#8a8f86}</style>
 </head>
 <body>
 
@@ -1229,8 +1229,8 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
 <h4>Members leaderboard</h4>
 <div class="ss-tabs"><button type="button" class="ss-tab on" data-g="men">Men</button><button type="button" class="ss-tab" data-g="ladies">Ladies</button></div>
 <div class="pk-find"><input class="inp" id="ss-q" type="search" placeholder="Find your score: type your first name" autocomplete="off" aria-label="Find your Sunday Series score"><div id="ss-res"></div></div>
-<table class="pk-lb"><thead><tr><th>#</th><th style="text-align:left">Player</th><th>Points</th></tr></thead><tbody id="ss-lb"></tbody></table>
-<div class="ss-prz"><b>Series prizes – men's and ladies' leaderboards</b><span id="ss-prz"></span><small>Top 8 (shaded) are in the prize places · paid at the end of the series.</small></div>
+<table class="pk-lb"><thead><tr><th>#</th><th style="text-align:left">Player</th><th>Points</th><th>Prize</th></tr></thead><tbody id="ss-lb"></tbody></table>
+<div class="ss-prz"><b>Series prizes – men's and ladies' leaderboards</b><span id="ss-prz"></span><small>Prizes paid at the end of the series. Tied places are settled under the series rules.</small></div>
 <h4>Round winners</h4>
 <p class="s" style="margin:0 0 6px">Handicap and non-handicap winners are paid in Rounds 1–4 only.</p>
 <div id="ss-rounds"></div>
@@ -1898,8 +1898,10 @@ window.addEventListener("afterprint",function(){var sg=document.querySelector(".
 var MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];function fd(d){var p=d.split("-");return (+p[2])+" "+MN[+p[1]-1];}
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function ranks(L){var out=[],prev=null,r=0;L.forEach(function(x,i){if(x[1]!==prev){r=i+1;prev=x[1];}out.push(r);});return out.map(function(r,i){var tie=out.filter(function(z){return z===r;}).length>1;return (tie?"=":"")+r;});}
-var g="men";function draw(){var L=D[g]||[],R=ranks(L),h="";L.forEach(function(x,i){var top=parseInt(R[i].replace("=",""),10)<=8;h+='<tr'+(top?' class="ss-top"':'')+'><td>'+R[i]+'</td><td style="text-align:left">'+esc(x[0])+'</td><td>'+x[1]+'</td></tr>';});
-document.getElementById("ss-lb").innerHTML=h||'<tr><td colspan="3">No points yet</td></tr>';}
+var g="men";function draw(){var L=D[g]||[],R=ranks(L),P=D.prizes||[],h="",n=Math.max(P.length,L.length),OR=["1st","2nd","3rd","4th","5th","6th","7th","8th"];
+for(var i=0;i<n;i++){var x=L[i],pz=i<P.length?"$"+P[i]:"";if(x){h+='<tr'+(i<P.length?' class="ss-top"':'')+'><td>'+R[i]+'</td><td style="text-align:left">'+esc(x[0])+'</td><td>'+x[1]+'</td><td class="ss-pz">'+pz+'</td></tr>';}
+else{h+='<tr class="ss-open"><td>'+(OR[i]||i+1)+'</td><td style="text-align:left">– place open –</td><td></td><td class="ss-pz">'+pz+'</td></tr>';}}
+document.getElementById("ss-lb").innerHTML=h;}
 document.querySelectorAll(".ss-tab").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".ss-tab").forEach(function(x){x.classList.toggle("on",x===b);});g=b.getAttribute("data-g");draw();});});
 draw();
 var pl=["1st","2nd","3rd","4th","5th","6th","7th","8th"];document.getElementById("ss-prz").textContent=D.prizes.map(function(p,i){return pl[i]+" $"+p;}).join(" · ");
