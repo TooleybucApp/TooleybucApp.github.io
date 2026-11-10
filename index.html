@@ -359,7 +359,7 @@ html.mgprint table.mg *,html.mgprint .mg-lead,html.mgprint .mg-wrap{-webkit-prin
 html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .tile{aspect-ratio:auto;min-height:96px}.tiles{display:flex!important;gap:8px}.tile{flex:1 1 0;min-width:0}.tile[hidden]{display:none!important}
 .tile.t-spec{border:0!important;box-shadow:inset 0 0 0 2px #5AA9E6,0 2px 6px rgba(0,0,0,.12)}
 .tile.t-hh{background:linear-gradient(180deg,#FFF4DC 0,#FFF4DC 15%,#F5B544 15%,#D9771A 100%)!important;color:#fff;text-shadow:0 1px 2px rgba(80,30,0,.45)}.tile.t-hh .ti{margin-top:6px}
-.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}.ss-next{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#E3F4E1;color:#215016;font-size:calc(14px*var(--fs,1))}#ss-lb td.ss-pz{font-weight:800;color:#215016}#ss-lb tr.ss-open td{color:#8a8f86;font-style:italic}#ss-lb tr.ss-open td.ss-pz{font-style:normal;color:#8a8f86}#ss-lb .ss-sp{display:block;font-size:calc(10px*var(--fs,1));font-weight:600;color:#6b6b6b}</style>
+.tile b{white-space:nowrap}.ck-l,.ck-s{margin:10px 0 0;padding-left:22px;font-size:calc(15px*var(--fs,1));line-height:1.4}#ck-t{font-size:calc(18px*var(--fs,1));margin:0}.ss-next{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#E3F4E1;color:#215016;font-size:calc(14px*var(--fs,1))}#ss-lb td.ss-pz{font-weight:800;color:#215016}#ss-lb tr.ss-open td{color:#8a8f86;font-style:italic}#ss-lb tr.ss-open td.ss-pz{font-style:normal;color:#8a8f86}#ss-lb .ss-sp{display:block;font-size:calc(10px*var(--fs,1));font-weight:600;color:#6b6b6b}.hsp-list{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:calc(15px*var(--fs,1))}.hsp-list b{color:var(--green);white-space:nowrap}.hsp-list span.av{color:#B54708;font-weight:700}.hsp-buy{margin-top:12px;padding:12px;border-radius:12px;background:#FFF3D6;display:flex;flex-direction:column;gap:6px}.hsp-buy small{color:#555}.hsp-buy .btn{align-self:flex-start}.hsp-now{display:block;font-size:calc(13px*var(--fs,1));font-weight:700;color:#5C6657;margin-top:2px;text-transform:none;letter-spacing:0}.hsp-now.av{color:#B54708}@media print{.hsp-now{display:none!important}}</style>
 </head>
 <body>
 
@@ -776,7 +776,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
     <button type="button" class="btn y" id="g-addp">+ Add the player you're marking</button>
   </div>
   <div class="card cur">
-    <span class="k" id="g-hole-k">HOLE 1</span>
+    <span class="k" id="g-hole-k">HOLE 1</span><span class="hsp-now" id="g-hsp"></span>
     <div class="hstat"><div><small>Par</small><b id="g-par">–</b></div><div><small>Metres</small><b id="g-m">–</b></div><div><small>Stroke</small><b id="g-idx">–</b></div></div>
     <div id="g-steps" class="steps"></div>
     <div class="btns"><button type="button" class="btn y" id="g-prev">◀ Previous</button><button type="button" class="btn g" id="g-next">Next hole ▶</button></div>
@@ -799,8 +799,9 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
       <li>Take a bucket of sand and repair divots on the fairway and ball marks on the greens.</li>
     </ul>
   </details>
-  <h2>Sponsor the golf course</h2>
-  <div class="card"><span class="t">Sponsor a hole – $400 + GST a year</span><span class="s">Your business on a 400mm x 1000mm course sign. Financial year, 1 July to 30 June. Contact reception: (03) 5030 5476.</span></div>
+  <h2>Our hole sponsors</h2>
+  <div class="card hsp-card"><div id="hsp-list" class="hsp-list"></div><div class="hsp-buy"><b>Sponsor a hole – $400 + GST a year</b><span id="hsp-av"></span><small>Your business on a 400mm x 1000mm course sign, and on that hole in this app's scorecard. Financial year, 1 July to 30 June.</small><a class="btn g" href="tel:0350305476">Call reception · (03) 5030 5476</a></div></div>
+  <script id="hsp-data" type="application/json">{"holes": {"1": "Moon Contract Services", "2": "Des McFarlane", "3": "Tooleybuc Sporting Club", "4": "Tooleybuc Sporting Club", "7": "Andrew Peace Wines", "8": "GMG Financial Group", "9": "Swan Hill Wholesalers \u00b7 Pooles Accounting (Hole in One Trophy)", "13": "Tooleybuc Sporting Club", "16": "The Lawn Shed"}, "available": ["5", "6", "11", "12", "14", "15", "17", "18"], "other": [["Golf Hut", "BRM Electrical \u00b7 Matthew Loats \u00b7 Pooles Accounting"], ["Putting green", "Available"]]}</script>
   <h2>Totals</h2>
   <div class="tbl"><table><thead><tr><th style="text-align:left">Player</th><th>Out</th><th>In</th><th>Gross</th><th>Net</th><th>Pts</th></tr></thead><tbody id="g-tots"></tbody></table></div>
   <h2>Full card</h2>
@@ -2037,6 +2038,12 @@ sh.addEventListener("click",function(){var t=txt();if(navigator.share){navigator
 <script>(function(){var t=document.getElementById("tile-agm"),a=document.getElementById("agm");if(!t||!a)return;if(a.hidden){t.hidden=true;return;}
 var cd=document.getElementById("agm-cd"),o=document.getElementById("tile-agm-cd");if(cd&&o&&cd.textContent)o.textContent=cd.textContent.replace(" to go","");t.addEventListener("click",function(){a.click();});})();</script>
 <script>(function(){var t=document.getElementById("tile-coke"),sh=document.getElementById("coke-sheet");if(!t||!sh)return;t.addEventListener("click",function(){sh.hidden=false;});sh.querySelector(".gx").addEventListener("click",function(){sh.hidden=true;});sh.addEventListener("click",function(e){if(e.target===sh)sh.hidden=true;});})();</script>
+<script>(function(){try{var D=JSON.parse(document.getElementById("hsp-data").textContent),L=document.getElementById("hsp-list");function e(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var h="";for(var i=1;i<=18;i++){var n=D.holes[String(i)];h+='<b>Hole '+i+'</b>'+(n?'<span>'+e(n)+'</span>':'<span class="av">Available – your business here</span>');}
+(D.other||[]).forEach(function(o){h+='<b>'+e(o[0])+'</b>'+(o[1]==="Available"?'<span class="av">Available – your business here</span>':'<span>'+e(o[1])+'</span>');});L.innerHTML=h;
+document.getElementById("hsp-av").textContent="Available now: holes "+D.available.join(", ")+" and the putting green.";
+var k=document.getElementById("g-hole-k"),o=document.getElementById("g-hsp");function upd(){var m=/(\d+)/.exec(k.textContent||"");if(!m){o.textContent="";return;}var n=D.holes[m[1]];o.className="hsp-now"+(n?"":" av");o.textContent=n?"Sponsored by "+n:"This hole is available to sponsor – ask at reception";}
+upd();new MutationObserver(upd).observe(k,{childList:true,characterData:true,subtree:true});}catch(err){}})();</script>
 
 </body>
 </html>
