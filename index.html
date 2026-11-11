@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}.lsn-days{display:flex;gap:6px;overflow-x:auto;margin:8px 0 6px}.lsn-day{flex:none;border:2px solid var(--green);background:#fff;color:var(--green);border-radius:10px;padding:6px 10px;font:inherit;font-weight:700;font-size:calc(13px*var(--fs,1));cursor:pointer}.lsn-day.on{background:var(--green);color:#fff}.lsn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.lsn-slot{min-height:52px;border-radius:12px;border:0;font:inherit;font-weight:700;font-size:calc(15px*var(--fs,1));cursor:pointer;background:#E3F4E1;color:#1B5E20;display:flex;flex-direction:column;align-items:center;justify-content:center}.lsn-slot small{font-size:calc(11px*var(--fs,1));font-weight:600}.lsn-slot[disabled]{background:#ECEAE3;color:#8a8f86;cursor:default}.lsn-note{margin-top:6px}html.scoremode .lsn{display:none!important}</style>
 <script>try{if(/netlify\.app$/.test(location.hostname))document.documentElement.classList.add("nfb");}catch(e){}</script>
 
 <title>Tooleybuc Club App</title>
@@ -771,6 +771,8 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
 }
 </script>
   <a class="hero teebook" href="https://www.bookatee.com.au/Tooleybuc/?club=Tooleybuc&amp;clubid=41&amp;Submit=Book"><span class="k">Step 1 · Before you play</span><span class="t">Book your tee time ↗</span><span class="s">All members and visitors book on Book-A-Tee, then show your receipt on site.</span></a>
+  <div class="card lsn" id="lsn"><span class="k">GOLF LESSONS · MONDAYS</span><span class="t">Lessons with Mark Bowd</span><span class="s">30 minutes · $50 · 5:30pm to 8pm. Tap a free time to book.</span><div class="lsn-days" id="lsn-days"></div><div class="lsn-grid" id="lsn-grid"></div><span class="s lsn-note">Your booking goes to the Club and is confirmed by reception. Pay at the Club.</span></div>
+  <script id="lesson-data" type="application/json">{"updated": "2026-11-11", "coach": "Mark Bowd", "price": 50, "day": "Monday", "slots": ["17:30", "18:00", "18:30", "19:00", "19:30", "20:00"], "dates": [{"date": "2026-11-16", "booked": []}, {"date": "2026-11-23", "booked": ["17:30"]}, {"date": "2026-11-30", "booked": []}, {"date": "2026-12-07", "booked": ["17:30"]}, {"date": "2026-12-14", "booked": []}, {"date": "2026-12-21", "booked": ["17:30"]}]}</script>
   <h2>Step 2 · Score your round</h2>
   <div class="card">
     <span class="k">How many holes are you playing?</span>
@@ -881,6 +883,12 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   </div>
   <div class="btns"><button type="button" class="btn g" id="fn-send">Send enquiry</button><a class="btn y" href="tel:0350305476">Call (03) 5030 5476</a></div>
   <button type="button" class="btn y" id="fn-x-btn" style="width:100%;margin-top:8px">Close</button>
+</div></div>
+<div class="sheet" id="lsn-sheet" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="lsn-t">
+  <h3 id="lsn-t">Book a golf lesson</h3>
+  <p id="lsn-when" class="s"></p>
+  <div class="fnf"><label class="s" for="lsn-name">Your name</label><input id="lsn-name" class="inp" autocomplete="name"><label class="s" for="lsn-ph">Best contact number</label><input id="lsn-ph" class="inp" type="tel" autocomplete="tel"></div>
+  <div class="btns"><button type="button" class="btn g" id="lsn-send">Send booking</button><button type="button" class="btn y" id="lsn-x">Cancel</button></div>
 </div></div>
 <div class="sheet" id="book-sheet" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="bk-t">
   <h3 id="bk-t">Book online</h3>
@@ -2192,4 +2200,22 @@ location.href="mailto:manager@tooleybucsc.com.au?subject="+encodeURIComponent("F
   }).catch(function(){});
 })();
 </script>
+<script>(function(){try{var D=JSON.parse(document.getElementById("lesson-data").textContent),days=document.getElementById("lsn-days"),grid=document.getElementById("lsn-grid"),S=document.getElementById("lsn-sheet"),sel=null,pick=null;
+var DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function lbl(t){var h=+t.slice(0,2),m=t.slice(3);return (h>12?h-12:h)+(m==="00"?"":":"+m)+"pm";}
+function dt(d){var x=new Date(d+"T00:00:00");return DN[x.getDay()]+" "+x.getDate()+" "+MN[x.getMonth()];}
+var now=new Date(),today=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+var list=D.dates.filter(function(x){return x.date>=today;}).slice(0,4);
+if(!list.length){document.getElementById("lsn").hidden=true;return;}
+function past(d,t){if(d!==today)return false;var hm=now.getHours()*60+now.getMinutes();return hm>=(+t.slice(0,2))*60+(+t.slice(3));}
+function draw(){days.innerHTML=list.map(function(x,i){return '<button type="button" class="lsn-day'+(x===sel?' on':'')+'" data-i="'+i+'">'+dt(x.date)+'</button>';}).join("");
+grid.innerHTML=D.slots.map(function(t){var b=sel.booked.indexOf(t)>=0||past(sel.date,t);return '<button type="button" class="lsn-slot" data-t="'+t+'"'+(b?' disabled':'')+'>'+lbl(t)+'<small>'+(b?'Booked':'Available')+'</small></button>';}).join("");}
+sel=list[0];draw();
+days.addEventListener("click",function(e){var b=e.target.closest(".lsn-day");if(!b)return;sel=list[+b.dataset.i];draw();});
+grid.addEventListener("click",function(e){var b=e.target.closest(".lsn-slot");if(!b||b.disabled)return;pick=b.dataset.t;document.getElementById("lsn-when").textContent="Monday lesson with "+D.coach+": "+dt(sel.date)+" at "+lbl(pick)+" · 30 minutes · $"+D.price;S.hidden=false;});
+document.getElementById("lsn-x").addEventListener("click",function(){S.hidden=true;});S.addEventListener("click",function(e){if(e.target===S)S.hidden=true;});
+document.getElementById("lsn-send").addEventListener("click",function(){var n=document.getElementById("lsn-name").value.trim(),ph=document.getElementById("lsn-ph").value.trim();if(!n){document.getElementById("lsn-name").focus();return;}
+var x=new Date(sel.date+"T00:00:00"),when=dt(sel.date)+" "+x.getFullYear()+" – "+lbl(pick);
+var body="Golf lesson booking from the Club app\n\nDate: "+sel.date+"\nTime: "+pick+" ("+lbl(pick)+")\nName: "+n+"\nContact number: "+ph+"\n\nCoach: "+D.coach+" · 30 minutes · $"+D.price;
+location.href="mailto:manager@tooleybucsc.com.au?subject="+encodeURIComponent("Golf lesson booking – "+when)+"&body="+encodeURIComponent(body);S.hidden=true;});}catch(err){}})();</script>
 </body></html>
