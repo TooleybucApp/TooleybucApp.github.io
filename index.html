@@ -2218,4 +2218,15 @@ document.getElementById("lsn-send").addEventListener("click",function(){var n=do
 var x=new Date(sel.date+"T00:00:00"),when=dt(sel.date)+" "+x.getFullYear()+" – "+lbl(pick);
 var body="Golf lesson booking from the Club app\n\nDate: "+sel.date+"\nTime: "+pick+" ("+lbl(pick)+")\nName: "+n+"\nContact number: "+ph+"\n\nCoach: "+D.coach+" · 30 minutes · $"+D.price;
 location.href="mailto:manager@tooleybucsc.com.au?subject="+encodeURIComponent("Golf lesson booking – "+when)+"&body="+encodeURIComponent(body);S.hidden=true;});}catch(err){}})();</script>
+<!-- GoatCounter usage counting (no cookies, no personal details); only counts on the live app -->
+<script>(function(){if(location.hostname!=="tooleybucapp.github.io")return;
+window.goatcounter={no_onload:true};
+var s=document.createElement("script");s.async=true;s.src="https://gc.zgo.at/count.js";s.setAttribute("data-goatcounter","https://tooleybucapp.goatcounter.com/count");
+var last="";function page(){var h=(location.hash||"#home").slice(1).split("?")[0]||"home";if(h===last)return;last=h;try{window.goatcounter.count({path:"/"+h,title:document.title});}catch(e){}}
+function ev(name){try{window.goatcounter.count({path:name,title:name,event:true});}catch(e){}}
+s.onload=function(){page();window.addEventListener("hashchange",page);};document.head.appendChild(s);
+var map=[["#g-score-go","Score a round"],[".glsn-go","Book a lesson (top)"],[".lsn-book","Book a lesson (card)"],[".mg-open","Mini golf scorecard"],["#fn-open","Function enquiry"],["#spec-open","Bistro specials"],["#tile-coke","Coca-Cola promo"],["#tile-agm","AGM"],[".ss-card","Sunday Series"],["#inst-add","Add app"],["#big-btn","Big text"],[".menu-open","Bistro menu"]];
+document.addEventListener("click",function(e){for(var i=0;i<map.length;i++){if(e.target.closest&&e.target.closest(map[i][0])){ev(map[i][1]);return;}}var a=e.target.closest&&e.target.closest("a[href]");if(a&&a.hostname&&a.hostname!==location.hostname){ev("Link: "+a.hostname);}},true);
+if(window.matchMedia&&matchMedia("(display-mode: standalone)").matches||navigator.standalone){setTimeout(function(){ev("Opened from home-screen icon");},1500);}
+})();</script>
 </body></html>
