@@ -1589,7 +1589,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   COURSES.par3.ladies.h=COURSES.par3.men.h;
   var KEY="tsc-golf-v2",HK="tsc-golf-results";
   var G={course:"main",tee:"men",holes:18,cur:0,players:[{n:""}],sc:[[]],me:-1},H=[];
-  try{var sv=JSON.parse(localStorage.getItem(KEY)||"null");if(sv&&sv.players)G=sv;}catch(e){}
+  try{var sv=JSON.parse(localStorage.getItem(KEY)||"null");if(sv&&sv.players)G=sv;}catch(e){}try{var t0=new Date(),t0s=t0.getFullYear()+"-"+String(t0.getMonth()+1).padStart(2,"0")+"-"+String(t0.getDate()).padStart(2,"0");if(G.date&&G.date<t0s){G.date=t0s;G.cur=G.start||0;G.sc=(G.players||[]).map(function(){return[];});localStorage.setItem(KEY,JSON.stringify(G));}}catch(e){}
   var MY="";try{MY=localStorage.getItem("tsc-me")||"";}catch(e){}
   if(MY&&!(G.me>=0)){ // this phone's owner always comes up as the Marker
     var f=G.players.findIndex(function(p){return p.n===MY;});
