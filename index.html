@@ -1610,7 +1610,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   var td=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   var lab=function(d){var x=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-td)/864e5);return x===0?"Tonight":x===1?"Tomorrow":DN[d.getDay()]+" "+d.getDate()+" "+MN[d.getMonth()];};
   var h="";up.forEach(function(r,i){var d=pd(r.date,r.time);h+='<div class="pk-r'+(i===0?' nx':'')+'"><span>Round '+r.no+' · '+lab(d)+(r.cost?'<small style="display:block;font-weight:400;opacity:.8">💵 '+r.cost+'</small>':'')+'</span><span>'+tf(r.time)+'</span></div>';});
-  if(D.final&&pd(D.final.date)>now)h+='<div class="pk-r fin"><span>🏆 '+D.final.label+'</span><span>'+(up.length?up.length+" round"+(up.length>1?"s":"")+" to go":"")+'</span></div>';
+  if(D.final&&pd(D.final.date)>now)h+='<div class="pk-r fin"><span>🏆 '+D.final.label+(up.length?'<small style="display:block;font-weight:400;opacity:.8">'+up.length+" round"+(up.length>1?"s":"")+" to go</small>":"")+'</span></div>';
   document.getElementById("pk-next").innerHTML=h||'<p class="s">Next series dates coming soon.</p>';
   var P=D.players.filter(function(p){return p.p>1;}).sort(function(a,b){return b.p-a.p||b.m-a.m;});
   var e=function(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
