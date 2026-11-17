@@ -1,3 +1,15 @@
+<style id="nav2">
+nav .wrap.r1{grid-template-columns:repeat(5,minmax(0,1fr));padding-block:6px 2px}
+nav .wrap.r2{grid-template-columns:repeat(4,minmax(0,1fr));padding-block:2px 6px;border-top:1px solid var(--line)}
+nav .wrap a,nav .wrap .navb{min-height:58px!important;font-size:calc(13px*var(--fs,1))!important;gap:4px!important}
+nav a svg,nav .navb svg{width:28px!important;height:28px!important}
+nav .nvi{font-weight:800;line-height:28px;height:28px;font-size:20px;color:var(--green)}
+nav .nav-bingo .nvi{font-size:10px;letter-spacing:.5px;color:#C2410C}
+nav .nav-poker .nvi{color:#111}
+main{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))!important}
+.games{display:none!important}
+.food{margin:14px 0}.food .spec{margin:0 0 10px}.food .fb{display:flex;gap:10px}.food .fb .btn{flex:1;text-align:center;font-size:calc(16px*var(--fs,1));padding:14px 8px}
+</style>
 <!doctype html>
 <html lang="en">
 <head>
@@ -377,7 +389,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   <button type="button" class="tile t-hh tap" data-t="Happy Hour" data-d="Happy Hour every day, 6pm to 7pm, at the Tooleybuc Sporting Club bar. The Tooleybuc Sporting Club promotes the responsible consumption of alcohol." data-a="call"><span class="ti">🍻</span><b>Happy Hour</b><small>6–7pm daily</small></button>
   <button type="button" class="tile t-coke" id="tile-coke"><span class="ti">🥤</span><b>Coca-Cola</b><small>Win $10k trip</small></button>
 </div>
-  <a class="card" href="https://tooleybucapp.github.io/agm-2026-ballot.html" style="text-decoration:none;color:inherit;border:2px solid var(--gold)"><span class="k">AGM ballot · Mon 23 Nov · vote 5pm–8pm</span><span class="t">🗳️ Notice of Ballot &amp; candidate bios</span><span class="s">4 nominations for 3 Director positions · tap to read (PDF)</span></a>
+  <a class="card" href="https://tooleybucapp.github.io/agm-2026-ballot.html" style="text-decoration:none;color:inherit;border:2px solid var(--gold)"><span class="k">AGM ballot · Mon 23 Nov · vote 5pm–8pm</span><span class="t">🗳️ Notice of Ballot &amp; candidate bios</span><span class="s">4 nominations for 3 Director positions · tap to read</span></a>
   <h2>Coming up</h2>
   <div id="upcoming"><button class="card tap ev" type="button" data-t="Board nominations close" data-d="Annual General Meeting – Monday 23 November 2026, 8pm. Board nominations close 8:00am Sunday 8 November. Three Director positions are vacant, each for a three-year term – two current Directors are not re-standing. Members will also be asked to approve the sale of the Club’s vacant non-core block at 17 Wakool Street. For a nomination form or any questions, call the Club." data-a="call" data-dates="2026-11-08" data-time="08:00"><div class="row"><div class="date"><small></small><b></b></div><div><div class="t">AGM: Board nominations close</div><div class="s">8:00am · 3 Director positions</div></div></div></button><button class="card tap ev" type="button" data-t="Annual General Meeting" data-d="Annual General Meeting – Monday 23 November 2026, 8pm. Board nominations close 8:00am Sunday 8 November. Three Director positions are vacant, each for a three-year term – two current Directors are not re-standing. Members will also be asked to approve the sale of the Club’s vacant non-core block at 17 Wakool Street. For a nomination form or any questions, call the Club." data-a="call" data-dates="2026-11-23" data-time="20:00"><div class="row"><div class="date"><small></small><b></b></div><div><div class="t">Annual General Meeting</div><div class="s">8pm · Board election &amp; land sale</div></div></div></button>
   <button class="card tap ev" type="button" data-ext="1" data-t="Coburns Classic Bowls (Nyah)" data-d="Nyah District Bowls presents the 2026 Annual Coburns Classic – Sunday 13 December 2026, 10am start, at the Nyah District Bowls Club. Entry $90 per team. To book your team, contact Nyah District Bowls Club – spots are filling up quickly. $2,000 in prize money and raffle prizes." data-a="call" data-dates="2026-12-13" data-time="10:00"><div class="row"><div class="date"><small></small><b></b></div><div><div class="t">Coburns Classic Bowls (Nyah)</div><div class="s">10am · $90 per team · $2,000 prize money</div></div></div></button>
@@ -399,6 +411,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   
   </div>
   <a class="hero" href="#draws"><span class="k">Snowball Members Jackpot · every Friday 8:30pm</span><span class="t">Jackpot now $1,400</span><span class="s">Next Monthly Members Draw: Friday 27 November, 9pm</span></a>
+  <div class="food"><div class="spec" data-spec></div><div class="fb"><button type="button" class="btn g menu-open">🍽 Bistro menu</button><button type="button" class="btn y" id="fn-home">🎉 Functions</button></div></div>
   <div class="games">
     <button type="button" class="game poker" id="poker-open"><span class="gi">♠♥</span><span><b>Poker</b><small>Texas Hold'em · 6:45pm</small></span></button>
     <button type="button" class="game bingo" id="bingo-open"><span class="gi">B·I·N·G·O</span><span><b>Bingo</b><small>Tue 7:15pm · Thu 11:30am</small></span></button>
@@ -1291,12 +1304,15 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   </details>
   <button class="btn g" type="button" id="qr-x">Close</button>
 </div></div>
-<nav aria-label="Main"><div class="wrap">
+<nav aria-label="Main"><div class="wrap r1">
   <a href="#home" data-v="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-8 9 8v10H3z"/></svg>Home</a>
   <a href="#whats-on" data-v="whats-on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18"/></svg>What's On</a>
   <a href="#golf" data-v="golf"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 21V3l11 4-11 4"/><ellipse cx="12" cy="21" rx="7" ry="1.5"/></svg>Golf</a>
   <a href="#draws" data-v="draws"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4z"/></svg>Draws</a>
   <a href="#dine" data-v="dine"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></svg>Dine</a>
+</div><div class="wrap r2">
+  <button type="button" class="navb nav-poker" aria-label="Poker"><span class="nvi" aria-hidden="true">♠♥</span>Poker</button>
+  <button type="button" class="navb nav-bingo" aria-label="Bingo"><span class="nvi" aria-hidden="true">B·I·N·G·O</span>Bingo</button>
   <button type="button" class="navb mg-open" aria-label="Mini golf scorecard"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="18" r="3"/><path d="M12 15V3l6 3-6 3"/></svg>Mini Golf</button>
   <a href="#member" data-v="member"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Member</a>
 </div></nav>
@@ -2001,4 +2017,6 @@ var map=[["#g-score-go","Score a round"],[".glsn-go","Book a lesson (top)"],[".l
 document.addEventListener("click",function(e){for(var i=0;i<map.length;i++){if(e.target.closest&&e.target.closest(map[i][0])){ev(map[i][1]);return;}}var a=e.target.closest&&e.target.closest("a[href]");if(a&&a.hostname&&a.hostname!==location.hostname){ev("Link: "+a.hostname);}},true);
 if(window.matchMedia&&matchMedia("(display-mode: standalone)").matches||navigator.standalone){setTimeout(function(){ev("Opened from home-screen icon");},1500);}
 })();</script>
+<script>(function(){[["nav-poker","poker-open"],["nav-bingo","bingo-open"]].forEach(function(p){var b=document.querySelector("."+p[0]),t=document.getElementById(p[1]);if(b&&t)b.addEventListener("click",function(){t.click();});});})();</script>
+<script>(function(){var b=document.getElementById("fn-home");if(b)b.addEventListener("click",function(){location.hash="dine";setTimeout(function(){var f=document.getElementById("fn-open");if(f){f.scrollIntoView({block:"center"});f.click();}},250);});})();</script>
 </body></html>
