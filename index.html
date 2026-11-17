@@ -1772,7 +1772,7 @@ var h='<div class="k">'+(day?"Today · "+DN[wd]+" · dinner from "+t:"Tonight ·
 h+='</ul>'+(S.price?'<span class="pr">$'+S.price+((S.items||[]).length>1?' each':'')+'</span>':'');
 if(S.dessert)h+='<div class="ds"><b>Dessert:</b> '+e(S.dessert[0])+(S.dessert[1]?' '+e(S.dessert[1]):'')+(S.dessert[2]?' \u2013 <b>$'+S.dessert[2]+'</b>':'')+'</div>';
 if(S.note)h+='<div class="nt">'+e(S.note)+'</div>';
-var wk=[];["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(k){var x=D.days&&D.days[k];if(x&&k!==wd)wk.push('<li><b>'+DN[k]+':</b> '+e(x.title||((x.items&&x.items[0]&&x.items[0][0])||""))+'</li>');});
+var wk=[];["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(k){var x=D.days&&D.days[k];if(x&&k!==wd)wk.push('<li><b>'+DN[k]+':</b> '+e((x.items&&x.items[0]&&x.items[0][0])||x.title||"")+(x.price?' \u2013 $'+x.price:'')+'</li>');});
 if(wk.length)h+='<div class="ds" style="margin-top:10px"><b>Daily specials this week</b><ul style="margin:4px 0 0">'+wk.join("")+'</ul></div>';
 document.querySelectorAll("[data-spec]").forEach(function(x){x.innerHTML=h;});
 var sub=document.getElementById("spec-sub");if(sub)sub.textContent=day?(DN[wd]+" special"):("$"+(S.price||D.main_price)+" specials");window.__specDay=day;}catch(err){}})();</script>
