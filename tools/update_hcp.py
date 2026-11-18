@@ -16,6 +16,8 @@ def enc(key,text):
 def tc(s):
     s=s.strip(); return ' '.join(w.capitalize() for w in s.split()) if (s.isupper() or s.islower()) else s
 tsv,asat=sys.argv[1],sys.argv[2]
+import os
+WOMEN=set(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'women.json'))))  # hashed Golf IDs of ladies (peach rows); add new ladies with add_lady.py
 rows=[]
 for line in open(tsv,encoding='utf-8'):
     p=line.rstrip('\n').split('\t')
@@ -23,15 +25,16 @@ for line in open(tsv,encoding='utf-8'):
     name=re.sub(r"IÃ.?nson","I'Anson",p[1])
     sur,first=[tc(x) for x in name.split(',',1)]
     if sur=='Oshea': sur="O'Shea"
-    rows.append(dict(id=p[0].strip(),first=first,sur=sur,dh=int(float(p[2])),ga=float(p[3])))
+    gid=p[0].strip()
+    rows.append(dict(id=gid,first=first,sur=sur,dh=int(float(p[2])),ga=float(p[3]),g='F' if f"{fnv('g|'+gid):08x}" in WOMEN else 'M'))
 R={};byn={}
 for r in rows:
     byn.setdefault(norm(r['first']+' '+r['sur']),[]).append(r)
-    R[f"{fnv('i|'+r['id']):08x}"]=enc(r['id'],f"{r['first']}|{r['sur']}|{r['id']}|{r['dh']}|{r['ga']}")
+    R[f"{fnv('i|'+r['id']):08x}"]=enc(r['id'],f"{r['first']}|{r['sur']}|{r['id']}|{r['dh']}|{r['ga']}|{r['g']}")
 for k,v in byn.items():
-    R[f"{fnv('i|'+k):08x}"]=enc(k,'DUP' if len(v)>1 else f"{v[0]['first']}|{v[0]['sur']}|{v[0]['id']}|{v[0]['dh']}|{v[0]['ga']}")
+    R[f"{fnv('i|'+k):08x}"]=enc(k,'DUP' if len(v)>1 else f"{v[0]['first']}|{v[0]['sur']}|{v[0]['id']}|{v[0]['dh']}|{v[0]['ga']}|{v[0]['g']}")
 lad=sorted(rows,key=lambda r:(r['ga'],r['sur']))
-body=''.join(f"<tr><td>{i}</td><td>{r['first']} {r['sur'][0]}.</td><td>{r['dh']}</td><td>{r['ga']:.1f}</td></tr>" for i,r in enumerate(lad,1))
+body=''.join(f"<tr class=\"{'lf' if r['g']=='F' else 'lm'}\"><td>{i}</td><td>{r['first']} {r['sur'][0]}.</td><td>{r['dh']}</td><td>{r['ga']:.1f}</td></tr>" for i,r in enumerate(lad,1))
 d=datetime.date.fromisoformat(asat); nice=f"{d.day} {d.strftime('%b %Y')}"
 for f in sys.argv[3:]:
     s=open(f,encoding='utf-8').read()
@@ -41,4 +44,4 @@ for f in sys.argv[3:]:
     s=re.sub(r'Handicap ladder · as at \d{1,2} [A-Z][a-z]{2} \d{4}',f'Handicap ladder · as at {nice}',s)
     s=re.sub(r'\d+ players · updated every Friday',f'{len(rows)} players · updated every Friday',s)
     open(f,'w',encoding='utf-8').write(s)
-print(f"{len(rows)} players, as at {nice}; duplicate names: {[k for k,v in byn.items() if len(v)>1]}")
+print(f"{len(rows)} players ({sum(r['g']=='F' for r in rows)} ladies), as at {nice}; duplicate names: {[k for k,v in byn.items() if len(v)>1]}")
