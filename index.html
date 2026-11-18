@@ -1781,9 +1781,9 @@ var F=new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",weekday:"shor
 var DN={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"},wd=(P.weekday||"").slice(0,3),iso=P.year+"-"+P.month+"-"+P.day,ix=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(wd);
 var t=["5:30pm","6pm","6pm","5:30pm","5:30pm","5:30pm","5:30pm"][ix<0?new Date().getDay():ix];
 var S=(D.dates&&D.dates[iso])||(D.days&&D.days[wd])||null,day=!!S;
-if(!S)S={title:"Bistro Specials",items:D.mains,price:D.main_price,dessert:D.dessert,note:D.note};
+if(!S)S={title:DN[wd]+" Specials",items:D.mains,price:D.main_price,dessert:D.dessert,note:D.note};
 var title=S.title||(DN[wd]+" Special");
-var h='<div class="k">'+(day?"Today · "+DN[wd]+" · dinner from "+t:"Tonight · dinner from "+t)+'</div><div class="h">'+e(title)+'</div><ul>';
+var MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],dl=DN[wd]+" "+(+P.day)+" "+MN[+P.month-1];var h='<div class="k">Today · '+dl+' · dinner from '+t+'</div><div class="h">'+e(title)+'</div><ul>';
 (S.items||[]).forEach(function(m){h+='<li>'+e(m[0])+(m[1]?'<small>'+e(m[1])+'</small>':'')+'</li>';});
 h+='</ul>'+(S.price?'<span class="pr">$'+S.price+((S.items||[]).length>1?' each':'')+'</span>':'');
 if(S.dessert)h+='<div class="ds"><b>Dessert:</b> '+e(S.dessert[0])+(S.dessert[1]?' '+e(S.dessert[1]):'')+(S.dessert[2]?' \u2013 <b>$'+S.dessert[2]+'</b>':'')+'</div>';
@@ -1791,7 +1791,7 @@ if(S.note)h+='<div class="nt">'+e(S.note)+'</div>';
 var wk=[];["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(k){var x=D.days&&D.days[k];if(x&&k!==wd)wk.push('<li><b>'+DN[k]+':</b> '+e((x.items&&x.items[0]&&x.items[0][0])||x.title||"")+(x.price?' \u2013 $'+x.price:'')+'</li>');});
 if(wk.length)h+='<div class="ds" style="margin-top:10px"><b>Daily specials this week</b><ul style="margin:4px 0 0">'+wk.join("")+'</ul></div>';
 document.querySelectorAll("[data-spec]").forEach(function(x){x.innerHTML=h;});
-var sub=document.getElementById("spec-sub");if(sub)sub.textContent=day?(DN[wd]+" special"):("$"+(S.price||D.main_price)+" specials");window.__specDay=day;}catch(err){}})();</script>
+var sub=document.getElementById("spec-sub");if(sub)sub.textContent=day?(DN[wd]+" special"):(DN[wd]+" · $"+(S.price||D.main_price)+" specials");window.__specDay=true;}catch(err){}})();</script>
 <script>(function(){var b=document.getElementById("spec-open"),sh=document.getElementById("spec-sheet");if(!b||!sh)return;try{var D=JSON.parse(document.getElementById("spec-data").textContent),t=["5:30pm","6pm","6pm","5:30pm","5:30pm","5:30pm","5:30pm"][new Date().getDay()];if(!window.__specDay)document.getElementById("spec-sub").textContent="$"+D.main_price+" specials";}catch(e){}b.addEventListener("click",function(){sh.hidden=false;});sh.querySelector(".gx").addEventListener("click",function(){sh.hidden=true;});sh.addEventListener("click",function(e){if(e.target===sh)sh.hidden=true;});})();</script>
 <script>(function(){var sh=document.getElementById("mg-sheet");if(!sh)return;
 var PAR=[2,2,2,3,2,2,2,2,3,2,2,3,2,2,2,2,2,2],K="tsc-mg",st={d:"",n:["","","",""],s:[]};
