@@ -22,11 +22,11 @@ rows=[]
 for line in open(tsv,encoding='utf-8'):
     p=line.rstrip('\n').split('\t')
     if len(p)<4 or not p[0].strip().isdigit(): continue
-    name=re.sub(r"IÃ.?nson","I'Anson",p[1])
+    name=re.sub(r"I(?:Ã.?|Á)nson","I'Anson",p[1])
     sur,first=[tc(x) for x in name.split(',',1)]
     if sur=='Oshea': sur="O'Shea"
     gid=p[0].strip()
-    rows.append(dict(id=gid,first=first,sur=sur,dh=int(float(p[2])),ga=float(p[3]),g='F' if f"{fnv('g|'+gid):08x}" in WOMEN else 'M'))
+    rows.append(dict(id=gid,first=first,sur=sur,dh=int(float(p[2])),ga=float(p[3]),g=(p[4].strip() if len(p)>4 and p[4].strip() in ('M','F') else ('F' if f"{fnv('g|'+gid):08x}" in WOMEN else 'M'))))
 R={};byn={}
 for r in rows:
     byn.setdefault(norm(r['first']+' '+r['sur']),[]).append(r)
