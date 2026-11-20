@@ -959,7 +959,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
 </div></section>
 
 <div class="wrap foot">Tooleybuc Sporting Club app · Updated <span id="foot-upd">9 Nov 2026</span> · manager@tooleybucsc.com.au</div>
-<script>(function(){try{var ds=[];["bat-data","gres-data","poker-data","gcal-data"].forEach(function(id){var e=document.getElementById(id);if(!e)return;try{var j=JSON.parse(e.textContent);if(j.updated)ds.push(String(j.updated));}catch(x){}});ds.sort();var u=ds.pop();if(!u)return;var p=u.split("-"),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];document.getElementById("foot-upd").textContent=(+p[2])+" "+M[+p[1]-1]+" "+p[0];}catch(e){}})();</script>
+<script>(function(){try{var ds=[];["bat-data","gres-data","poker-data","gcal-data","hcp-data","lesson-data","spec-data"].forEach(function(id){var e=document.getElementById(id);if(!e)return;try{var j=JSON.parse(e.textContent),v=j.updated||j.as_at;if(v)ds.push(String(v).slice(0,10));}catch(x){}});ds.sort();var u=ds.pop();if(!u)return;var p=u.split("-"),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];document.getElementById("foot-upd").textContent=(+p[2])+" "+M[+p[1]-1]+" "+p[0];}catch(e){}})();</script>
 </main>
 
 <div class="sheet" id="sheet" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="sh-t">
