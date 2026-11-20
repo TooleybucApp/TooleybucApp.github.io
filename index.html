@@ -1348,7 +1348,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
     var b=document.getElementById("sh-a");b.hidden=!a;if(a){b.href="#"+a;b.textContent=a==="call"?"Book / enquire":"See all";}
     sh.hidden=false;document.getElementById("sh-x").focus();}
   function close(){sh.hidden=true;}
-  document.querySelectorAll(".tap").forEach(function(el){el.addEventListener("click",function(){open(el.dataset.t,el.dataset.d,el.dataset.a);});});
+  document.querySelectorAll(".tap").forEach(function(el){el.addEventListener("click",function(){if(!el.dataset.t)return;open(el.dataset.t,el.dataset.d,el.dataset.a);});});
   document.querySelectorAll(".wk div").forEach(function(el){el.addEventListener("click",function(){var c=el.children;if(el.dataset.d){open(el.dataset.t,el.dataset.d,el.dataset.link?"link":"call");if(el.dataset.link){var b=document.getElementById("sh-a");b.href=el.dataset.link;b.textContent="Book on Book-A-Tee ↗";}}else open(c[0].textContent,"Every week at "+c[1].textContent+". All welcome.","call");});});
   document.getElementById("sh-x").addEventListener("click",close);
   document.getElementById("sh-a").addEventListener("click",close);
