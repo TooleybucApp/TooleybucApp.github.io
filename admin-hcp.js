@@ -123,13 +123,11 @@
   function apply(html, rows, asat) {
     var b = build(rows, asat), n = nice(asat);
     var s = html;
-    var before = s;
+    if (!/<script id="hcp-data" type="application\/json">[\s\S]*?<\/script>/.test(s)) throw new Error('Could not find the handicap data in the app page.');
+    if (!/<tbody id="lad-b">[\s\S]*?<\/tbody>/.test(s)) throw new Error('Could not find the handicap ladder in the app page.');
     s = s.replace(/(<script id="hcp-data" type="application\/json">)[\s\S]*?(<\/script>)/, function (m, a, c) { return a + b.json + c; });
-    if (s === before) throw new Error('Could not find the handicap data in the app page.');
     s = s.split('<th>Daily</th><th>GA</th>').join('<th>TSC Daily</th><th>Par 3</th><th>GA</th>');
-    before = s;
     s = s.replace(/(<tbody id="lad-b">)[\s\S]*?(<\/tbody>)/, function (m, a, c) { return a + b.body + c; });
-    if (s === before && html.indexOf('<tbody id="lad-b">') < 0) throw new Error('Could not find the handicap ladder in the app page.');
     s = s.replace(/as at \d{1,2} [A-Z][a-z]{2} \d{4}( · updated (?:every Friday|Tuesdays &amp; Fridays))/g, function (m, a) { return 'as at ' + n + a; });
     s = s.replace(/Handicap ladder · as at \d{1,2} [A-Z][a-z]{2} \d{4}/g, 'Handicap ladder · as at ' + n);
     s = s.replace(/\d+ players · updated (every Friday|Tuesdays &amp; Fridays)/g, rows.length + ' players · updated Tuesdays &amp; Fridays');
