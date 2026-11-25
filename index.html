@@ -1,7 +1,7 @@
 <style id="lad-css">.lad{width:100%;border-collapse:collapse;font-size:calc(15px*var(--fs,1))}.lad th,.lad td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}.lad th{color:var(--green);position:sticky;top:0;background:#fff}.lad td:nth-child(1),.lad th:nth-child(1){width:2.2em;color:#777}.lad td:nth-child(3),.lad td:nth-child(4),.lad th:nth-child(3),.lad th:nth-child(4){text-align:right;width:3.6em}.lad tr.lm td{background:#dbe9f6}.lad tr.lf td{background:#fbe0cc}.lad-key{display:flex;gap:12px;margin:0 0 6px;font-size:calc(14px*var(--fs,1))}.lad-key span{padding:3px 10px;border-radius:6px}.hcp.hauto{background:#fff3b0!important;border-color:#d4a838!important}</style>
 <style id="nav2">
 nav .wrap.r1{grid-template-columns:repeat(5,minmax(0,1fr));padding-block:6px 2px}
-nav .wrap.r2{grid-template-columns:repeat(4,minmax(0,1fr));padding-block:2px 6px;border-top:1px solid var(--line)}
+nav .wrap.r2{grid-template-columns:repeat(4,minmax(0,1fr)) 30px;padding-block:2px 6px;border-top:1px solid var(--line)}
 nav .wrap a,nav .wrap .navb{min-height:58px!important;font-size:calc(13px*var(--fs,1))!important;gap:4px!important}
 nav a svg,nav .navb svg{width:28px!important;height:28px!important}
 nav .nvi{font-weight:800;line-height:28px;height:28px;font-size:20px;color:var(--green)}
@@ -10,6 +10,8 @@ nav .nav-poker .nvi{color:#111}
 main{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))!important}
 .games{display:none!important}
 .food{margin:14px 0}.food .spec{margin:0 0 10px}.food .fb{display:flex;gap:10px}.food .fb .btn{flex:1;text-align:center;font-size:calc(16px*var(--fs,1));padding:14px 8px}
+
+nav a.adm{align-self:end;justify-self:end;min-height:0!important;width:26px;height:26px;border-radius:50%;background:#1F5FAE;color:#fff!important;font:700 14px/26px Arial,sans-serif!important;display:block;text-align:center;padding:0;margin:0 0 2px;opacity:.9}
 </style>
 <!doctype html>
 <html lang="en">
@@ -1318,6 +1320,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   <button type="button" class="navb nav-bingo" aria-label="Bingo"><span class="nvi" aria-hidden="true">B·I·N·G·O</span>Bingo</button>
   <button type="button" class="navb mg-open" aria-label="Mini golf scorecard"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="18" r="3"/><path d="M12 15V3l6 3-6 3"/></svg>Mini Golf</button>
   <a href="#member" data-v="member"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Member</a>
+  <a href="https://tooleybucapp.github.io/admin.html" class="adm" aria-label="Staff admin" title="Staff admin">A</a>
 </div></nav>
 
 <script>

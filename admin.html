@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>TSC Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#215213">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TSC Admin">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--green:#215213;--deep:#163a0c;--gold:#F0AD1D;--cream:#F6F4EC;--paper:#fff;--ink:#1E2A1A;--muted:#55624f;--line:#E2DFD3;--red:#B42318;--soft-red:#FDECEA;--soft-gold:#FFF4D9;--soft-green:#DCE6D5;--blue:#1F5FAE;--pink:#D94C8A;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--green);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 14px;position:sticky;top:0;z-index:5}
+header .in{max-width:620px;margin:0 auto;display:flex;align-items:center;gap:12px}
+header img{width:42px;height:42px;border-radius:10px;background:#fff}
+header b{display:block;font-size:18px}header small{opacity:.85;font-size:13px}
+header .sp{flex:1}
+header button{background:none;border:2px solid var(--gold);color:#fff;border-radius:10px;padding:6px 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+main{max-width:620px;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+section[hidden]{display:none!important}
+section{display:flex;flex-direction:column;gap:14px}
+h1{font-size:22px;margin:4px 0 0;color:var(--green)}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.card{background:var(--paper);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card p{margin:0}.muted{color:var(--muted);font-size:14px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step.done .num{background:var(--gold);color:var(--green)}
+.step .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.step b.t{font-size:17px}
+ol.small{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 16px;border-radius:12px;border:0;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;width:100%}
+.btn.g{background:var(--green);color:#fff}.btn.y{background:var(--gold);color:var(--green)}.btn.o{background:#fff;color:var(--green);border:2px solid var(--green)}
+.btn.r{background:#fff;color:var(--red);border:2px solid var(--red)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input.inp{width:100%;font:inherit;font-size:17px;min-height:50px;border:2px solid var(--line);border-radius:12px;padding:0 14px;background:#fff;color:var(--ink)}
+input.inp:focus{outline:3px solid var(--gold);border-color:var(--green)}
+input.pin{text-align:center;letter-spacing:.5em;font-size:26px;font-weight:700}
+label.l{font-weight:700;font-size:14px;color:var(--green)}
+.tile{display:flex;align-items:center;gap:14px;background:var(--paper);border-radius:14px;padding:16px;border:0;font:inherit;text-align:left;width:100%;cursor:pointer;color:var(--ink);border-left:8px solid var(--green)}
+.tile .ic{font-size:30px;flex:none}.tile b{display:block;font-size:18px;color:var(--green)}.tile small{display:block;color:var(--muted);font-size:14px}
+.tile .ar{margin-left:auto;font-size:24px;color:var(--gold)}
+.tile.soon{border-left-color:var(--line);cursor:default;opacity:.6}.tile.soon b{color:var(--muted)}
+.msg{border-radius:12px;padding:12px 14px;font-size:15px}
+.msg.err{background:var(--soft-red);color:var(--red);font-weight:600}
+.msg.ok{background:var(--soft-green);color:var(--deep);font-weight:600}
+.msg.warn{background:var(--soft-gold);color:#6b4a00;font-weight:600}
+.files{display:flex;flex-direction:column;gap:6px}
+.file{display:flex;justify-content:space-between;gap:8px;background:var(--cream);border-radius:10px;padding:10px 12px;font-size:15px}
+.file b.m{color:var(--blue)}.file b.f{color:var(--pink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats div{background:var(--cream);border-radius:10px;padding:10px 4px}.stats b{display:block;font-size:24px;color:var(--green)}.stats small{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td.n{text-align:right;white-space:nowrap}th.n{text-align:right}
+tr.m td:first-child{border-left:5px solid var(--blue)}tr.f td:first-child{border-left:5px solid var(--pink)}
+.up{color:var(--red);font-weight:700}.down{color:var(--green);font-weight:700}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp 1s linear infinite}
+.btn.o .spin{border-color:rgba(33,82,19,.25);border-top-color:var(--green)}
+@keyframes sp{to{transform:rotate(360deg)}}
+details.help{background:var(--paper);border-radius:14px;padding:0 16px}
+details.help summary{min-height:50px;display:flex;align-items:center;font-weight:700;color:var(--green);cursor:pointer}
+details.help ol{padding-left:20px;margin:0 0 14px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+code{background:var(--cream);padding:1px 5px;border-radius:5px;font-size:14px}
+.foot{text-align:center;font-size:12px;color:var(--muted)}
+a{color:var(--green)}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <img src="icon-192.png" alt="">
+  <div><b>TSC Admin</b><small id="hdr-sub">Staff only</small></div>
+  <span class="sp"></span>
+  <button id="lock-btn" type="button" hidden>Lock</button>
+</div></header>
+
+<main>
+<noscript><div class="msg err">This page needs JavaScript turned on.</div></noscript>
+
+<!-- First time on this phone: key + PIN -->
+<section id="s-setup" hidden>
+  <h1>Set up this phone</h1>
+  <div class="card">
+    <p>This page updates the TSC app for you. It needs a <b>GitHub key</b> (made once on your computer) and a <b>PIN</b> you choose for this phone.</p>
+    <p class="muted">The key is kept on this phone only, locked with your PIN. It is never sent anywhere except GitHub.</p>
+  </div>
+  <details class="help">
+    <summary>How to make the GitHub key (once, on your computer)</summary>
+    <ol>
+      <li>Sign in to GitHub as <b>TooleybucApp</b>, then open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+      <li>Token name: <code>TSC admin – John's phone</code>. Expiration: <b>1 year</b> (or the longest allowed).</li>
+      <li>Repository access: <b>Only select repositories</b> › <b>TooleybucApp.github.io</b>.</li>
+      <li>Permissions › Repository permissions › <b>Contents</b> › <b>Read and write</b>. Leave everything else as it is.</li>
+      <li>Press <b>Generate token</b> and copy it (it starts with <code>github_pat_</code>). Send it to your phone yourself (e.g. a note or email to yourself) – don't send it to anyone else.</li>
+      <li>Lost the phone? On GitHub › Settings › Developer settings › Fine-grained tokens, delete the key. It stops working at once.</li>
+    </ol>
+  </details>
+  <div class="card">
+    <label class="l" for="key">GitHub key</label>
+    <input id="key" class="inp" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…">
+    <label class="l" for="pin1">Choose a PIN (4–8 numbers)</label>
+    <input id="pin1" class="inp pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password">
+    <label class="l" for="pin2">PIN again</label>
+    <input id="pin2" class="inp pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password">
+    <div id="setup-msg" class="msg err" hidden></div>
+    <button id="setup-go" class="btn g" type="button">Check key and save</button>
+  </div>
+</section>
+
+<!-- Locked: enter PIN -->
+<section id="s-lock" hidden>
+  <h1>Sign in</h1>
+  <div class="card">
+    <label class="l" for="pin">Your PIN</label>
+    <input id="pin" class="inp pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="current-password">
+    <div id="lock-msg" class="msg err" hidden></div>
+    <button id="lock-go" class="btn g" type="button">Sign in</button>
+  </div>
+  <button id="forget" class="btn r" type="button">Forgot PIN – set up this phone again</button>
+</section>
+
+<!-- Signed in: task list -->
+<section id="s-home" hidden>
+  <h1>What would you like to update?</h1>
+  <button class="tile" type="button" data-go="s-hcp">
+    <span class="ic">⛳</span>
+    <span><b>Golf handicaps</b><small id="hcp-asat">Ladder and scorecard handicaps from GA Connect</small></span>
+    <span class="ar">›</span>
+  </button>
+  <h2>Coming later</h2>
+  <div class="tile soon"><span class="ic">♠</span><span><b>Poker ladder</b><small>Not set up yet</small></span></div>
+  <div class="tile soon"><span class="ic">🍽</span><span><b>Daily specials</b><small>Not set up yet</small></span></div>
+  <div class="tile soon"><span class="ic">📅</span><span><b>What's On</b><small>Not set up yet</small></span></div>
+  <a class="btn o" href="./">Open the TSC app</a>
+  <button id="forget2" class="btn r" type="button">Remove the key from this phone</button>
+</section>
+
+<!-- Golf handicaps -->
+<section id="s-hcp" hidden>
+  <button class="btn o" type="button" data-go="s-home">‹ Back</button>
+  <h1>Golf handicaps</h1>
+
+  <div class="card step" id="st1">
+    <span class="num">1</span>
+    <div class="body">
+      <b class="t">Export from GA Connect</b>
+      <a class="btn y" href="https://live.gaconnect.golf.com.au/Default.aspx" target="_blank" rel="noopener">Open GA Connect ↗</a>
+      <ol class="small">
+        <li>Sign in. Tap <b>Reports</b> › <b>Member GA Handicap Listing</b>. (Cramped? Safari <b>aA</b> › Request Desktop Website.)</li>
+        <li><b>Men:</b> tick MEN only · tees <b>Blue, Men</b> + <b>Par 3, Men</b> · <b>Preview</b> › <b>Export to CSV</b>.</li>
+        <li><b>Ladies:</b> tick WOMEN only · tees <b>Red, Women</b> + <b>GA. Par 3, Women</b> · <b>Preview</b> › <b>Export to CSV</b>.</li>
+        <li>Come back to this page.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card step" id="st2">
+    <span class="num">2</span>
+    <div class="body">
+      <b class="t">Choose the two files</b>
+      <p class="muted">On iPhone: Browse › Downloads › pick both <i>handicapreport…csv</i> files (tap Select, tap both, Open).</p>
+      <input id="files" type="file" accept=".csv,text/csv" multiple hidden>
+      <button id="pick" class="btn g" type="button">Choose files</button>
+      <div id="file-list" class="files"></div>
+      <div id="file-msg" class="msg" hidden></div>
+    </div>
+  </div>
+
+  <div class="card step" id="st3">
+    <span class="num">3</span>
+    <div class="body">
+      <b class="t">Check the changes</b>
+      <div id="check" class="muted">Waiting for both files.</div>
+    </div>
+  </div>
+
+  <div class="card step" id="st4">
+    <span class="num">4</span>
+    <div class="body">
+      <b class="t">Publish to the app</b>
+      <button id="publish" class="btn g" type="button" disabled>Publish</button>
+      <div id="pub-msg" class="msg" hidden></div>
+    </div>
+  </div>
+</section>
+
+<p class="foot">Tooleybuc Sporting Club · staff page</p>
+</main>
+
+<script src="admin-hcp.js"></script>
+<script>
+(function(){
+'use strict';
+var REPO='TooleybucApp/TooleybucApp.github.io', API='https://api.github.com/repos/'+REPO, LS='tscAdminKey';
+var token=null;
+function $(id){return document.getElementById(id);}
+function store(k,v){try{if(v==null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+function load(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function show(id){['s-setup','s-lock','s-home','s-hcp'].forEach(function(s){$(s).hidden=(s!==id);});$('lock-btn').hidden=!(id==='s-home'||id==='s-hcp');window.scrollTo(0,0);}
+function msg(el,text,kind){el.hidden=!text;el.className='msg '+(kind||'err');el.textContent=text||'';}
+function busy(btn,on,label){if(on){btn.dataset.l=btn.textContent;btn.disabled=true;btn.innerHTML='<span class="spin"></span>'+(label||'Working…');}else{btn.disabled=false;btn.textContent=label||btn.dataset.l||'';}}
+
+// ---- PIN-locked key (AES-GCM, key from PIN via PBKDF2) ----
+var te=new TextEncoder(),td=new TextDecoder();
+function u8b64(u){return TSCHcp.b64(u);}
+function b64u8(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+function pinKey(pin,salt){return crypto.subtle.importKey('raw',te.encode(pin),'PBKDF2',false,['deriveKey']).then(function(k){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);});}
+function lockKey(tok,pin){var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  return pinKey(pin,salt).then(function(k){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,te.encode(tok));}).then(function(ct){return JSON.stringify({v:1,s:u8b64(salt),i:u8b64(iv),c:u8b64(new Uint8Array(ct))});});}
+function unlockKey(blob,pin){var o=JSON.parse(blob);return pinKey(pin,b64u8(o.s)).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:b64u8(o.i)},k,b64u8(o.c));}).then(function(p){return td.decode(p);});}
+
+// ---- GitHub ----
+function gh(path,opt){opt=opt||{};var h={'Accept':'application/vnd.github+json','Authorization':'Bearer '+(opt.token||token),'X-GitHub-Api-Version':'2022-11-28'};
+  if(opt.body)h['Content-Type']='application/json';
+  return fetch(API+path,{method:opt.method||'GET',headers:h,body:opt.body?JSON.stringify(opt.body):undefined,cache:'no-store'}).then(function(r){
+    return r.text().then(function(t){var j=null;try{j=JSON.parse(t);}catch(e){}
+      if(!r.ok){var e=new Error(explain(r.status,j));e.status=r.status;throw e;}return j;});});}
+function explain(st,j){var m=(j&&j.message)||'';
+  if(st===401)return 'GitHub did not accept the key (it may have expired or been deleted). Tap "Remove the key from this phone" and set it up again with a new key.';
+  if(st===403||st===404)return 'This key is not allowed to update the app. Check it was made for TooleybucApp.github.io with Contents: Read and write.'+(m?' ('+m+')':'');
+  if(st===409||st===422)return 'The app was changed by someone else at the same moment. Try Publish again.';
+  return 'GitHub problem ('+st+(m?': '+m:'')+'). Try again in a minute.';}
+function getIndex(){return gh('/contents/index.html?ref=main').then(function(j){
+  var p=(j.content&&j.encoding==='base64')?Promise.resolve(j.content):gh('/git/blobs/'+j.sha).then(function(b){return b.content;});
+  return p.then(function(c){return {sha:j.sha,html:td.decode(b64u8(c.replace(/\s/g,'')))};});});}
+function putIndex(html,sha,message){return gh('/contents/index.html',{method:'PUT',body:{message:message,content:u8b64(te.encode(html)),sha:sha,branch:'main'}});}
+function sydneyDate(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Sydney',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}catch(e){var d=new Date();return d.toISOString().slice(0,10);}}
+
+// ---- start ----
+function signedIn(tok){token=tok;show('s-home');$('hdr-sub').textContent='Signed in';refreshHome();}
+function refreshHome(){getIndex().then(function(x){var a=TSCHcp.currentAsAt(x.html),n=TSCHcp.currentLadder(x.html).length;
+  $('hcp-asat').textContent='App ladder as at '+(a?TSCHcp.nice(a):'?')+' · '+n+' players';}).catch(function(e){$('hcp-asat').textContent=e.message;});}
+function start(){if(!window.crypto||!crypto.subtle){document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="msg err">This browser can\'t keep the key safely. Please use Safari or Chrome.</div>');return;}
+  show(load(LS)?'s-lock':'s-setup');}
+
+$('setup-go').onclick=function(){var k=$('key').value.trim(),p1=$('pin1').value,p2=$('pin2').value,m=$('setup-msg'),b=this;
+  if(!/^(github_pat_|ghp_)[A-Za-z0-9_]+$/.test(k))return msg(m,'That doesn\'t look like a GitHub key – it should start with github_pat_.');
+  if(!/^\d{4,8}$/.test(p1))return msg(m,'The PIN must be 4 to 8 numbers.');
+  if(p1!==p2)return msg(m,'The two PINs are different.');
+  msg(m,'');busy(b,true,'Checking key…');
+  gh('/contents/index.html?ref=main',{token:k}).then(function(){return lockKey(k,p1);}).then(function(blob){store(LS,blob);$('key').value=$('pin1').value=$('pin2').value='';busy(b,false,'Check key and save');signedIn(k);})
+  .catch(function(e){busy(b,false,'Check key and save');msg(m,e.message);});};
+$('lock-go').onclick=function(){var p=$('pin').value,m=$('lock-msg'),b=this;if(!p)return msg(m,'Type your PIN.');busy(b,true,'Signing in…');
+  unlockKey(load(LS),p).then(function(t){$('pin').value='';msg(m,'');busy(b,false,'Sign in');signedIn(t);})
+  .catch(function(){busy(b,false,'Sign in');msg(m,'Wrong PIN. Try again.');$('pin').value='';});};
+$('pin').addEventListener('keydown',function(e){if(e.key==='Enter')$('lock-go').click();});
+function forget(){if(!confirm('Remove the GitHub key from this phone? You will need the key again to set it up.'))return;store(LS,null);token=null;$('hdr-sub').textContent='Staff only';show('s-setup');}
+$('forget').onclick=forget;$('forget2').onclick=forget;
+$('lock-btn').onclick=function(){token=null;$('hdr-sub').textContent='Staff only';show('s-lock');};
+document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){show(b.dataset.go);if(b.dataset.go==='s-home')refreshHome();};});
+
+// ---- Golf handicaps ----
+var exportsBy={},plan=null;
+$('pick').onclick=function(){$('files').click();};
+$('files').onchange=function(){var fl=Array.prototype.slice.call(this.files||[]);this.value='';if(!fl.length)return;
+  Promise.all(fl.map(function(f){return f.text().then(function(t){try{var x=TSCHcp.readExport(t);x.name=f.name;return x;}catch(e){return {err:e.message,name:f.name};}});})).then(function(list){
+    var errs=[];list.forEach(function(x){if(x.err)errs.push(x.name+': '+x.err);else exportsBy[x.kind]=x;});
+    drawFiles();msg($('file-msg'),errs.join(' '),'err');
+    if(exportsBy.M&&exportsBy.F)prepare();else{plan=null;$('publish').disabled=true;$('check').innerHTML='<span class="muted">Waiting for '+(exportsBy.M?'the ladies':'the men')+'\'s file'+(exportsBy.M||exportsBy.F?'':'s')+'.</span>';}
+  });};
+function drawFiles(){var h='';['M','F'].forEach(function(k){var x=exportsBy[k];
+  h+='<div class="file"><b class="'+(k==='M'?'m':'f')+'">'+(k==='M'?'Men':'Ladies')+'</b><span>'+(x?x.rows.length+' players'+(x.skipped.length?' (+'+x.skipped.length+' pending)':''):'not chosen yet')+'</span></div>';});
+  $('file-list').innerHTML=h;$('st2').classList.toggle('done',!!(exportsBy.M&&exportsBy.F));}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function prepare(){var c=$('check');c.innerHTML='<span class="muted">Reading the app…</span>';$('publish').disabled=true;msg($('pub-msg'),'');
+  getIndex().then(function(cur){
+    var rows=TSCHcp.players(exportsBy.M.rows.concat(exportsBy.F.rows)),date=sydneyDate(),out=TSCHcp.apply(cur.html,rows,date);
+    var old=TSCHcp.currentLadder(cur.html),nw=out.ladder.map(function(r){return {g:r.g,name:r.first+' '+Array.from(r.sur)[0]+'.',dh:String(r.dh),p3:r.p3||'–',ga:r.ga.toFixed(1)};});
+    var key=function(r){return r.g+'|'+r.name;},om={},nm={};old.forEach(function(r){(om[key(r)]=om[key(r)]||[]).push(r);});nw.forEach(function(r){(nm[key(r)]=nm[key(r)]||[]).push(r);});
+    var changed=[],added=[],gone=[];
+    Object.keys(nm).forEach(function(k){var a=om[k]||[],b=nm[k];
+      if(!a.length){b.forEach(function(r){added.push(r);});return;}
+      if(a.length===1&&b.length===1){if(a[0].dh!==b[0].dh||a[0].ga!==b[0].ga||a[0].p3!==b[0].p3)changed.push([a[0],b[0]]);return;}
+      var as=a.map(function(r){return r.dh+'/'+r.ga;}).sort().join(),bs=b.map(function(r){return r.dh+'/'+r.ga;}).sort().join();
+      if(as!==bs||a.length!==b.length){a.forEach(function(r){gone.push(r);});b.forEach(function(r){added.push(r);});}});
+    Object.keys(om).forEach(function(k){if(!nm[k])om[k].forEach(function(r){gone.push(r);});});
+    var warn=[];
+    if(exportsBy.M.rows.length<30)warn.push('Only '+exportsBy.M.rows.length+' men – was MEN the only gender ticked?');
+    if(exportsBy.F.rows.length<10)warn.push('Only '+exportsBy.F.rows.length+' ladies – was WOMEN the only gender ticked?');
+    if(!exportsBy.M.hasPar3||!exportsBy.F.hasPar3)warn.push('A Par 3 column is missing – tick the Par 3 tee before Export.');
+    if(old.length&&rows.length<old.length*0.9)warn.push('That is '+(old.length-rows.length)+' fewer players than the app has now.');
+    var h='<div class="stats"><div><b>'+out.players+'</b><small>Players</small></div><div><b>'+out.ladies+'</b><small>Ladies</small></div><div><b>'+changed.length+'</b><small>Changed</small></div></div>';
+    if(changed.length){h+='<table><thead><tr><th>Player</th><th class="n">Daily</th><th class="n">Par 3</th><th class="n">GA</th></tr></thead><tbody>';
+      changed.forEach(function(p){var a=p[0],b=p[1],cls=function(x,y){return +y<+x?'down':(+y>+x?'up':'');};
+        h+='<tr class="'+(b.g==='F'?'f':'m')+'"><td>'+esc(b.name)+'</td><td class="n">'+(a.dh!==b.dh?a.dh+' → <span class="'+cls(a.dh,b.dh)+'">'+b.dh+'</span>':b.dh)+'</td><td class="n">'+(a.p3!==b.p3?a.p3+' → '+b.p3:b.p3)+'</td><td class="n">'+(a.ga!==b.ga?a.ga+' → <span class="'+cls(a.ga,b.ga)+'">'+b.ga+'</span>':b.ga)+'</td></tr>';});
+      h+='</tbody></table>';}
+    if(added.length)h+='<p><b>New / changed names:</b> '+added.map(function(r){return esc(r.name)+' ('+r.dh+'/'+r.ga+')';}).join(', ')+'</p>';
+    if(gone.length)h+='<p><b>No longer on the list:</b> '+gone.map(function(r){return esc(r.name);}).join(', ')+'</p>';
+    if(out.dups.length)h+='<p class="muted">Same name twice (app will ask for their Golf ID): '+out.dups.map(esc).join(', ')+'</p>';
+    var sk=exportsBy.M.skipped.concat(exportsBy.F.skipped);if(sk.length)h+='<p class="muted">Skipped (no handicap yet): '+sk.map(esc).join(', ')+'</p>';
+    if(warn.length)h+='<div class="msg warn">'+warn.map(esc).join('<br>')+'</div>';
+    var same=out.html===cur.html;
+    if(!changed.length&&!added.length&&!gone.length)h+='<div class="msg ok">No handicaps have changed since '+TSCHcp.nice(TSCHcp.currentAsAt(cur.html)||date)+'.'+(same?'':' Publishing will just move the "as at" date to today.')+'</div>';
+    c.innerHTML=h;$('st3').classList.add('done');
+    plan={html:out.html,sha:cur.sha,date:date,changed:changed.length};
+    $('publish').disabled=same;$('publish').textContent=same?'Nothing to publish':'Publish – handicaps as at '+TSCHcp.nice(date);
+  }).catch(function(e){c.innerHTML='<div class="msg err">'+esc(e.message)+'</div>';});}
+$('publish').onclick=function(){if(!plan)return;var b=this,m=$('pub-msg');busy(b,true,'Publishing…');msg(m,'');
+  putIndex(plan.html,plan.sha,'Golf handicaps updated to '+plan.date+' (admin page)').then(function(r){
+    busy(b,false,'Published ✓');b.disabled=true;$('st4').classList.add('done');
+    msg(m,'Done. The app shows the new handicaps in about a minute (pull down to refresh). '+plan.changed+' player'+(plan.changed===1?'':'s')+' changed.','ok');
+    plan=null;exportsBy={};drawFiles();
+  }).catch(function(e){busy(b,false,'Publish');msg(m,e.message);if(e.status===409||e.status===422)prepare();});};
+
+var hid=0;document.addEventListener('visibilitychange',function(){if(document.hidden)hid=Date.now();else if(token&&hid&&Date.now()-hid>5*60000){token=null;$('hdr-sub').textContent='Staff only';show('s-lock');}});
+start();
+})();
+</script>
+</body>
+</html>
