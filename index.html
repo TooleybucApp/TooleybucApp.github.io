@@ -1365,7 +1365,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
   COURSES.par3.ladies.h=COURSES.par3.men.h;
   var KEY="tsc-golf-v2",HK="tsc-golf-results";
   var G={course:"main",tee:"men",holes:18,cur:0,players:[{n:""}],sc:[[]],me:-1},H=[];
-  try{var sv=JSON.parse(localStorage.getItem(KEY)||"null");if(sv&&sv.players)G=sv;}catch(e){}try{var t0=new Date(),t0s=t0.getFullYear()+"-"+String(t0.getMonth()+1).padStart(2,"0")+"-"+String(t0.getDate()).padStart(2,"0");if(G.date&&G.date<t0s){G.date=t0s;localStorage.setItem(KEY,JSON.stringify(G));}}catch(e){}
+  try{var sv=JSON.parse(localStorage.getItem(KEY)||"null");if(sv&&sv.players)G=sv;}catch(e){}try{var t0=new Date(),t0s=t0.getFullYear()+"-"+String(t0.getMonth()+1).padStart(2,"0")+"-"+String(t0.getDate()).padStart(2,"0");if(G.date&&G.date<t0s){G.date=t0s;G.newday=1;localStorage.setItem(KEY,JSON.stringify(G));}}catch(e){}
   var MY="";try{MY=localStorage.getItem("tsc-me")||"";}catch(e){}
   if(MY&&!(G.me>=0)){ // this phone's owner always comes up as the Marker
     var f=G.players.findIndex(function(p){return p.n===MY;});
@@ -1400,6 +1400,7 @@ html.bigtxt .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}html.bigtxt .ti
     if(h){p.h=String(h.dh);p.hauto=1;if(h.g)p.g=h.g;save();say("Found: Golf ID and daily handicap "+h.dh+" filled from the "+hDate()+" list. Check today's handicap and change it if needed.");}
     else{save();say("Member found: Golf ID filled. Now enter today's daily handicap.");}
     return true;}
+  (function(){try{var ch=0;(G.players||[]).forEach(function(p){if(!p||!p.id||p.id.length!==10)return;var h=hdec(p.id);if(!h||h==="DUP")return;if((G.newday||p.hauto||!p.h)&&p.h!==String(h.dh)){p.h=String(h.dh);p.hauto=1;ch=1;}});if(G.newday||ch){delete G.newday;save();}}catch(e){}})();
   function memRefresh(){}
   function TP(i){return COURSES[G.course][G.course==="par3"?"men":(GN(i)==="f"?"ladies":"men")];} // Par 3: one card for men & ladies
   function MIX(){return G.course==="main"&&G.players.some(function(_,i){return GN(i)==="f";})&&G.players.some(function(_,i){return GN(i)==="m";});}
